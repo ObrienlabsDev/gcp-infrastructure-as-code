@@ -8,8 +8,8 @@ terraform {
 
 // Create a secret containing the personal access token and grant permissions to the Service Agent
 resource "google_secret_manager_secret" "github_token_secret" {
-    project = PROJECT_ID
-    secret_id = SECRET_ID
+    project = gcp-infrastructure-as-code //PROJECT_ID
+    secret_id = github //SECRET_ID
 
     replication {
         auto {}
@@ -18,13 +18,14 @@ resource "google_secret_manager_secret" "github_token_secret" {
 
 resource "google_secret_manager_secret_version" "github_token_secret_version" {
     secret = google_secret_manager_secret.github_token_secret.id
-    secret_data = GITHUB_PAT
+    secret_data = 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
+    //GITHUB_PAT
 }
 
 data "google_iam_policy" "serviceagent_secretAccessor" {
     binding {
         role = "roles/secretmanager.secretAccessor"
-        members = ["serviceAccount:service-PROJECT_NUMBER@gcp-sa-cloudbuild.iam.gserviceaccount.com"]
+        members = ["serviceAccount:service-319811514193@gcp-sa-cloudbuild.iam.gserviceaccount.com"]
     }
 }
 
@@ -36,12 +37,12 @@ resource "google_secret_manager_secret_iam_policy" "policy" {
 
 // Create the GitHub connection
 resource "google_cloudbuildv2_connection" "my_connection" {
-    project = PROJECT_ID
-    location = REGION
-    name = CONNECTION_NAME
+    project = gcp-infrastructure-as-code //PROJECT_ID
+    location = northamerica-northeast1 //REGION
+    name = github //CONNECTION_NAME
 
     github_config {
-        app_installation_id = INSTALLATION_ID
+        app_installation_id = 88877838 //INSTALLATION_ID
         authorizer_credential {
             oauth_token_secret_version = google_secret_manager_secret_version.github_token_secret_version.id
         }
