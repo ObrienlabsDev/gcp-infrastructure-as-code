@@ -2,6 +2,12 @@
 
 # References
 - for design pattern around Shared VPCs and Project Architecture in a hybrid environment see the official Google Cloud Networking Design Patterns slide deck - https://docs.google.com/presentation/d/1fn9WaATaxnlbW80ykfRJPkLR4FxZ5X0bOOMfaVK9_uc/edit?resourcekey=0-_XJJE6FFw2Y6x49uEzlqZw&slide=id.g1154b3b950f_2_820#slide=id.g1154b3b950f_2_820 off https://cloud.google.com/architecture/blueprints/security-foundations and https://cloud.google.com/architecture/landing-zones/decide-network-design
+
+# Bootstrap Project
+# Cloud Build Infrastructure
+- https://cloud.google.com/build/docs/terraform
+- follow https://cloud.google.com/build/docs/automating-builds/github/connect-repo-github?generation=2nd-gen#terraform
+
 # User IAM permissions
 # Service Account Creation
 # Service Account IAM permissions
