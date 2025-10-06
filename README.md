@@ -7,6 +7,9 @@
 # Cloud Build Infrastructure
 - https://cloud.google.com/build/docs/terraform
 - follow https://cloud.google.com/build/docs/automating-builds/github/connect-repo-github?generation=2nd-gen#terraform
+- Install Cloud Build connector on Github
+- <img width="1088" height="1492" alt="image" src="https://github.com/user-attachments/assets/e3c836ef-425b-41ce-a437-dc062d0a133c" />
+
 
 # User IAM permissions
 # Service Account Creation
