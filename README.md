@@ -17,6 +17,102 @@
 
 ```
 gcloud config set project gcp-infrastructure-as-code
+el@cloudshell:~/gcp-infrastructure-as-code/1-cloud-build (gcp-infrastructure-as-code)$
+// reuse bootstrap for now
+git clone https://github.com/ObrienlabsDev/gcp-infrastructure-as-code.git
+cd gcp-infrastructure-as-code/
+cd 1-cloud-build/
+terraform init
+terraform plan
+
+terraform 1.5.7
+
+Terraform will perform the following actions:
+
+  # google_cloudbuildv2_connection.my_connection will be created
+  + resource "google_cloudbuildv2_connection" "my_connection" {
+      + create_time           = (known after apply)
+      + effective_annotations = (known after apply)
+      + etag                  = (known after apply)
+      + id                    = (known after apply)
+      + installation_state    = (known after apply)
+      + location              = "northamerica-northeast1"
+      + name                  = "github"
+      + project               = "gcp-infrastructure-as-code"
+      + reconciling           = (known after apply)
+      + update_time           = (known after apply)
+
+      + github_config {
+          + app_installation_id = 88877838
+
+          + authorizer_credential {
+              + oauth_token_secret_version = (known after apply)
+              + username                   = (known after apply)
+            }
+        }
+    }
+
+  # google_secret_manager_secret.github_token_secret will be created
+  + resource "google_secret_manager_secret" "github_token_secret" {
+      + create_time           = (known after apply)
+      + deletion_protection   = false
+      + effective_annotations = (known after apply)
+      + effective_labels      = {
+          + "goog-terraform-provisioned" = "true"
+        }
+      + expire_time           = (known after apply)
+      + id                    = (known after apply)
+      + name                  = (known after apply)
+      + project               = "gcp-infrastructure-as-code"
+      + secret_id             = "github"
+      + terraform_labels      = {
+          + "goog-terraform-provisioned" = "true"
+        }
+
+      + replication {
+          + auto {
+            }
+        }
+    }
+
+  # google_secret_manager_secret_iam_policy.policy will be created
+  + resource "google_secret_manager_secret_iam_policy" "policy" {
+      + etag        = (known after apply)
+      + id          = (known after apply)
+      + policy_data = jsonencode(
+            {
+              + bindings = [
+                  + {
+                      + members = [
+                          + "serviceAccount:service-319811514193@gcp-sa-cloudbuild.iam.gserviceaccount.com",
+                        ]
+                      + role    = "roles/secretmanager.secretAccessor"
+                    },
+                ]
+            }
+        )
+      + project     = "gcp-infrastructure-as-code"
+      + secret_id   = "github"
+    }
+
+  # google_secret_manager_secret_version.github_token_secret_version will be created
+  + resource "google_secret_manager_secret_version" "github_token_secret_version" {
+      + create_time            = (known after apply)
+      + deletion_policy        = "DELETE"
+      + destroy_time           = (known after apply)
+      + enabled                = true
+      + id                     = (known after apply)
+      + is_secret_data_base64  = false
+      + name                   = (known after apply)
+      + secret                 = (known after apply)
+      + secret_data            = (sensitive value)
+      + secret_data_wo_version = 0
+      + version                = (known after apply)
+    }
+
+Plan: 4 to add, 0 to change, 0 to destroy.
+
+
 
 ```
 
