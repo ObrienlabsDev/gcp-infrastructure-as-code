@@ -22,6 +22,15 @@ el@cloudshell:~/gcp-infrastructure-as-code/1-cloud-build (gcp-infrastructure-as-
 git clone https://github.com/ObrienlabsDev/gcp-infrastructure-as-code.git
 cd gcp-infrastructure-as-code/
 cd 1-cloud-build/
+```
+## Enable select google APIs
+```
+gcloud services enable secretmanager.googleapis.com
+gcloud services enable cloudbuild.googleapis.com
+
+```
+## Terraform apply
+
 terraform init
 terraform plan
 
@@ -111,10 +120,21 @@ Terraform will perform the following actions:
     }
 
 Plan: 4 to add, 0 to change, 0 to destroy.
+```
 
-
+## Troubleshooting
+### Expected SA creation
+```
+│ Error: Error setting IAM policy for secretmanager secret "projects/gcp-infrastructure-as-code/secrets/github": googleapi: Error 400: Service account service-319811514193@gcp-sa-cloudbuild.iam.gserviceaccount.com does not exist.
+```
+- connect to github account first - this will automatically create the service account
+- https://cloud.google.com/build/docs/automating-builds/github/connect-repo-github?generation=2nd-gen#connect_to_a_github_host
 
 ```
+gcloud services enable cloudbuild.googleapis.com
+```
+<img width="2226" height="1030" alt="image" src="https://github.com/user-attachments/assets/eb5537e8-ab09-4efc-b967-67f681e4cc0f" />
+
 
 
 # User IAM permissions
