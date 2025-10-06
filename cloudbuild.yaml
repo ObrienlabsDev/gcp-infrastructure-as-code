@@ -47,4 +47,4 @@ artifacts:
 
 # Explicitly define where to store the logs for this build.
 # This is required when using a custom service account.
-logsBucket: 'gs://${_REGIONAL_USER_OWNED_BUCKET}/logs'
+logsBucket: 'gs://${PROJECT_ID}_cloudbuild/artifacts/logs'
