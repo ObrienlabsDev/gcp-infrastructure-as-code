@@ -18,8 +18,7 @@ resource "google_secret_manager_secret" "github_token_secret" {
 
 resource "google_secret_manager_secret_version" "github_token_secret_version" {
     secret = google_secret_manager_secret.github_token_secret.id
-    secret_data = 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
-    //GITHUB_PAT
+    secret_data = GITHUB_PAT
 }
 
 data "google_iam_policy" "serviceagent_secretAccessor" {
