@@ -32,11 +32,12 @@ gcloud services enable cloudbuild.googleapis.com
 ## Terraform apply
 ```
 terraform init
-terraform plan
+terraform plan -var-file=terraform.tfvars
 
 terraform 1.5.7
 
 Terraform will perform the following actions:
+
 
   # google_cloudbuildv2_connection.my_connection will be created
   + resource "google_cloudbuildv2_connection" "my_connection" {
