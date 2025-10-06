@@ -8,8 +8,8 @@ terraform {
 
 // Create a secret containing the personal access token and grant permissions to the Service Agent
 resource "google_secret_manager_secret" "github_token_secret" {
-    project = PROJECT_ID
-    secret_id = SECRET_ID
+    project = var.project_id
+    secret_id = var.secret_id
 
     replication {
         auto {}
@@ -18,14 +18,14 @@ resource "google_secret_manager_secret" "github_token_secret" {
 
 resource "google_secret_manager_secret_version" "github_token_secret_version" {
     secret = google_secret_manager_secret.github_token_secret.id
-    secret_data = GITHUB_PAT
+    secret_data = var.github_pat
 }
 
 // enabling cloud build will create the service account
 data "google_iam_policy" "serviceagent_secretAccessor" {
     binding {
         role = "roles/secretmanager.secretAccessor"
-        members = ["serviceAccount:service-PROJECT_NUMBER@gcp-sa-cloudbuild.iam.gserviceaccount.com"]
+        members = ["serviceAccount:service-${var.project_number}@gcp-sa-cloudbuild.iam.gserviceaccount.com"]
     }
 }
 
@@ -37,9 +37,9 @@ resource "google_secret_manager_secret_iam_policy" "policy" {
 
 // Create the GitHub connection
 resource "google_cloudbuildv2_connection" "my_connection" {
-    project = PROJECT_ID
-    location = REGION
-    name = CONNECTION_NAME
+    project = var.project_id
+    location = var.region
+    name = var.connection_name
 
     github_config {
         app_installation_id = INSTALLATION_ID
