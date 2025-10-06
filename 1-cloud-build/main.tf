@@ -42,7 +42,7 @@ resource "google_cloudbuildv2_connection" "my_connection" {
     name = var.connection_name
 
     github_config {
-        app_installation_id = INSTALLATION_ID
+        app_installation_id = var.installation_id
         authorizer_credential {
             oauth_token_secret_version = google_secret_manager_secret_version.github_token_secret_version.id
         }
