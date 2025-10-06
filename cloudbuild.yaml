@@ -43,10 +43,10 @@ steps:
 # Save the generated plan file as an artifact.
 # This allows you to inspect the plan after the build completes or use it
 # in a subsequent 'apply' build.
-artifacts:
-  objects:
-    location: 'gs://${PROJECT_ID}_cloudbuild/artifacts'
-    paths: ['tfplan']
+#artifacts:
+#  objects:
+#    location: 'gs://${PROJECT_ID}_cloudbuild/artifacts'
+#    paths: ['tfplan']
 
 # Explicitly define where to store the logs for this build.
 # This is required when using a custom service account.
