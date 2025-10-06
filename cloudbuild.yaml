@@ -15,6 +15,7 @@ steps:
     entrypoint: 'terraform'
     args: ['init']
     id: 'Terraform Init'
+    dir: '2-cloud-build-triggers'
 
   # 2. Validate Terraform Configuration
   # This step checks for syntax errors and ensures the configuration is internally consistent.
@@ -22,6 +23,7 @@ steps:
     entrypoint: 'terraform'
     args: ['validate']
     id: 'Terraform Validate'
+    dir: '2-cloud-build-triggers'
 
   # 3. Generate Terraform Plan
   # This step creates an execution plan and saves it to a file named 'tfplan'.
@@ -36,6 +38,7 @@ steps:
       # When you run the build, Cloud Build automatically populates $PROJECT_ID.
       - '-var=project_id=${PROJECT_ID}'
     id: 'Terraform Plan'
+    dir: '2-cloud-build-triggers'
 
 # Save the generated plan file as an artifact.
 # This allows you to inspect the plan after the build completes or use it
@@ -43,7 +46,7 @@ steps:
 artifacts:
   objects:
     location: 'gs://${PROJECT_ID}_cloudbuild/artifacts'
-    paths: ['2-cloud-build-triggers']
+    paths: ['tfplan']
 
 # Explicitly define where to store the logs for this build.
 # This is required when using a custom service account.
