@@ -10,7 +10,15 @@
 - Install Cloud Build connector on Github
 - <img width="1088" height="1492" alt="image" src="https://github.com/user-attachments/assets/e3c836ef-425b-41ce-a437-dc062d0a133c" />
 - <img width="1488" height="1462" alt="image" src="https://github.com/user-attachments/assets/7a6c4d45-835a-484e-a438-36e0b3d3b3a2" />
+- generate PAT with code read permissions
+- create a bootstrap project
+- set billing on the project, check project owner
+- in a cloud shell
 
+```
+gcloud config set project gcp-infrastructure-as-code
+
+```
 
 
 # User IAM permissions
