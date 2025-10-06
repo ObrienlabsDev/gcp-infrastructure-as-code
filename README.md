@@ -135,7 +135,35 @@ gcloud services enable cloudbuild.googleapis.com
 ```
 <img width="2226" height="1030" alt="image" src="https://github.com/user-attachments/assets/eb5537e8-ab09-4efc-b967-67f681e4cc0f" />
 
+### Change the ids - plan/apply
+```
+Plan: 4 to add, 0 to change, 3 to destroy.
 
+google_secret_manager_secret_iam_policy.policy: Destroying... [id=projects/gcp-infrastructure-as-code/secrets/github]
+google_secret_manager_secret_version.github_token_secret_version: Destroying... [id=projects/319811514193/secrets/github/versions/1]
+google_secret_manager_secret_version.github_token_secret_version: Destruction complete after 0s
+google_secret_manager_secret_iam_policy.policy: Destruction complete after 0s
+google_secret_manager_secret.github_token_secret: Destroying... [id=projects/gcp-infrastructure-as-code/secrets/github]
+google_secret_manager_secret.github_token_secret: Destruction complete after 1s
+google_secret_manager_secret.github_token_secret: Creating...
+google_secret_manager_secret.github_token_secret: Creation complete after 1s [id=projects/gcp-infrastructure-as-code/secrets/github_tf]
+google_secret_manager_secret_iam_policy.policy: Creating...
+google_secret_manager_secret_version.github_token_secret_version: Creating...
+google_secret_manager_secret_iam_policy.policy: Creation complete after 0s [id=projects/gcp-infrastructure-as-code/secrets/github_tf]
+google_secret_manager_secret_version.github_token_secret_version: Creation complete after 1s [id=projects/319811514193/secrets/github_tf/versions/1]
+google_cloudbuildv2_connection.my_connection: Creating...
+google_cloudbuildv2_connection.my_connection: Still creating... [10s elapsed]
+╷
+│ Error: Error waiting to create Connection: Error waiting for Creating Connection: Error code 9, message: failed to get authenticated user from GitHub: GET https://api.github.com/user: 401 Bad credentials []
+│ 
+│   with google_cloudbuildv2_connection.my_connection,
+│   on main.tf line 39, in resource "google_cloudbuildv2_connection" "my_connection":
+│   39: resource "google_cloudbuildv2_connection" "my_connection" {
+
+regenerated token (auto-expired) - moved to 366 days
+│ Error: Error waiting to create Connection: Error waiting for Creating Connection: Error code 9, message: the user token does not have access to installations (if using a personal access token, make sure it has enough permissions)
+
+```
 
 # User IAM permissions
 # Service Account Creation
