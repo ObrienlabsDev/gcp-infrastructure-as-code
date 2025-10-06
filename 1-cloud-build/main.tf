@@ -8,8 +8,8 @@ terraform {
 
 // Create a secret containing the personal access token and grant permissions to the Service Agent
 resource "google_secret_manager_secret" "github_token_secret" {
-    project = gcp-infrastructure-as-code //PROJECT_ID
-    secret_id = github //SECRET_ID
+    project = "gcp-infrastructure-as-code" //PROJECT_ID
+    secret_id = "github_tf" //SECRET_ID
 
     replication {
         auto {}
@@ -21,6 +21,7 @@ resource "google_secret_manager_secret_version" "github_token_secret_version" {
     secret_data = GITHUB_PAT
 }
 
+// enabling cloud build will create the service account
 data "google_iam_policy" "serviceagent_secretAccessor" {
     binding {
         role = "roles/secretmanager.secretAccessor"
@@ -36,12 +37,12 @@ resource "google_secret_manager_secret_iam_policy" "policy" {
 
 // Create the GitHub connection
 resource "google_cloudbuildv2_connection" "my_connection" {
-    project = gcp-infrastructure-as-code //PROJECT_ID
-    location = northamerica-northeast1 //REGION
-    name = github //CONNECTION_NAME
+    project = "gcp-infrastructure-as-code" //PROJECT_ID
+    location = "northamerica-northeast1" //REGION
+    name = "github_tf" //CONNECTION_NAME
 
     github_config {
-        app_installation_id = 88877838 //INSTALLATION_ID
+        app_installation_id = "88877838" //INSTALLATION_ID
         authorizer_credential {
             oauth_token_secret_version = google_secret_manager_secret_version.github_token_secret_version.id
         }
