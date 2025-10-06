@@ -164,6 +164,9 @@ regenerated token (auto-expired) - moved to 366 days
 │ Error: Error waiting to create Connection: Error waiting for Creating Connection: Error code 9, message: the user token does not have access to installations (if using a personal access token, make sure it has enough permissions)
 
 ```
+forgot org permissions
+checked https://github.com/organizations/ObrienlabsDev/settings/personal-access-tokens
+
 
 # User IAM permissions
 # Service Account Creation
