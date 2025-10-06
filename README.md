@@ -9,6 +9,8 @@
 - follow https://cloud.google.com/build/docs/automating-builds/github/connect-repo-github?generation=2nd-gen#terraform
 - Install Cloud Build connector on Github
 - <img width="1088" height="1492" alt="image" src="https://github.com/user-attachments/assets/e3c836ef-425b-41ce-a437-dc062d0a133c" />
+- <img width="1488" height="1462" alt="image" src="https://github.com/user-attachments/assets/7a6c4d45-835a-484e-a438-36e0b3d3b3a2" />
+
 
 
 # User IAM permissions
