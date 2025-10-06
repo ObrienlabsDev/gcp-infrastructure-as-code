@@ -30,7 +30,7 @@ gcloud services enable cloudbuild.googleapis.com
 
 ```
 ## Terraform apply
-
+```
 terraform init
 terraform plan
 
