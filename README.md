@@ -12,6 +12,13 @@ export PATH="$PATH:/Users/mi...n/bin"
 ```
 
 # Quickstart
+## GCP bootstrap project and Service Account
+
+Script
+
+Output
+- sa-user-github-cb@gcp-infrastructure-as-code.iam.gserviceaccount.com
+
 ## Generate a github legacy token
 GCP only recognizes the older tokens
 
