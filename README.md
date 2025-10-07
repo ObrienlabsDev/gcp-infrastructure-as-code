@@ -7,8 +7,34 @@ Use tfswitch
 ```
 brew install warrensbox/tap/tfswitch
 tfswitch 1.13.3
+
+export PATH="$PATH:/Users/mi...n/bin"
 ```
 
+# Quickstart
+## Generate a github legacy token
+GCP only recognizes the older tokens
+
+```
+clone
+cd 1-*
+terraform init
+vi terraform.tfvars - add PAT
+terraform plan -var-file=terraform.tfvars
+terraform apply -var-file=terraform.tfvars
+
+google_secret_manager_secret.github_token_secret: Creating...
+google_secret_manager_secret.github_token_secret: Creation complete after 0s [id=projects/gcp-infrastructure-as-code/secrets/github_tf]
+google_secret_manager_secret_iam_policy.policy: Creating...
+google_secret_manager_secret_version.github_token_secret_version: Creating...
+google_secret_manager_secret_iam_policy.policy: Creation complete after 1s [id=projects/gcp-infrastructure-as-code/secrets/github_tf]
+google_secret_manager_secret_version.github_token_secret_version: Creation complete after 2s [id=projects/319811514193/secrets/github_tf/versions/1]
+google_cloudbuildv2_connection.my_connection: Creating...
+google_cloudbuildv2_connection.my_connection: Still creating... [00m10s elapsed]
+google_cloudbuildv2_connection.my_connection: Creation complete after 10s [id=projects/gcp-infrastructure-as-code/locations/northamerica-northeast1/connections/github_tf]
+
+Apply complete! Resources: 4 added, 0 changed, 0 destroyed.
+```
 # References
 - for design pattern around Shared VPCs and Project Architecture in a hybrid environment see the official Google Cloud Networking Design Patterns slide deck - https://docs.google.com/presentation/d/1fn9WaATaxnlbW80ykfRJPkLR4FxZ5X0bOOMfaVK9_uc/edit?resourcekey=0-_XJJE6FFw2Y6x49uEzlqZw&slide=id.g1154b3b950f_2_820#slide=id.g1154b3b950f_2_820 off https://cloud.google.com/architecture/blueprints/security-foundations and https://cloud.google.com/architecture/landing-zones/decide-network-design
 
