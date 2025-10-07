@@ -2,6 +2,9 @@
 
 # 20251007 Michael O'Brien
 
+set -e
+
+source ./vars.sh
 
 usage()
 {
@@ -44,6 +47,7 @@ if [[ $no_args == true ]]; then
     usage
     exit 1
 fi
+
 # get org and billing id based on project
 ORG_ID=$(gcloud projects get-ancestors $PROJECT_ID --format='get(id)' | tail -1)
 BILLING_ID=$(gcloud alpha billing projects describe $PROJECT_ID '--format=value(billingAccountName)' | sed 's/.*\///')
@@ -53,6 +57,9 @@ CB_PROJECT_ID=
 seed_gcp () {
   #SEED_PROJECT=gcp-infrastructure-as-code
   gcloud config set project $PROJECT_ID
+
+  # enable APIs
+  gcloud services enable serviceusage.googleapis.com 
 
   # verify super admin account has proper roles to use the terraform service account
   EMAIL=`gcloud config list account --format "value(core.account)"`
@@ -77,6 +84,7 @@ main () {
   else
     echo " GCP service account creation failed. Please debug and rerun"
   fi
+  printf "**** Done ****\n"
 }
 
 main
