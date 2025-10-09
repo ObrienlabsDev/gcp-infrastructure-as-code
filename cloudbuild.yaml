@@ -25,17 +25,19 @@ steps:
       - '-out=tfplan'
       # cloud Build automatically populates $PROJECT_ID.
       - '-var=project_id=${PROJECT_ID}'
+      - '-var-file=terraform.tfvars'
     id: 'Terraform Plan'
     dir: '4-appmod'
 
-  #- name: 'hashicorp/terraform:1.5.7'
-  #  entrypoint: 'terraform'
-  #  args:
-  #    - 'apply'
-  #    - '-out=tfapply'
-  #    - '-var=project_id=${PROJECT_ID}'
-  #  id: 'Terraform Apply'
-  #  dir: '4-appmod'
+  - name: 'hashicorp/terraform:1.5.7'
+    entrypoint: 'terraform'
+    args:
+      - 'apply'
+      - '-out=tfapply'
+      - '-var=project_id=${PROJECT_ID}'
+      - '-var-file=terraform.tfvars'
+    id: 'Terraform Apply'
+    dir: '4-appmod'
 
 # Save the generated plan file as an artifact.
 # This allows you to inspect the plan after the build completes or use it
