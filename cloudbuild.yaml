@@ -35,6 +35,7 @@ steps:
       - 'apply'
       - '-var-file=terraform.tfvars'
       - '-var=project_id=${PROJECT_ID}'
+      - '-auto-approve'
     id: 'Terraform Apply'
     dir: '4-appmod'
 
