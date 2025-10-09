@@ -33,9 +33,8 @@ steps:
     entrypoint: 'terraform'
     args:
       - 'apply'
-      - '-out=tfapply'
-      - '-var=project_id=${PROJECT_ID}'
       - '-var-file=terraform.tfvars'
+      - '-var=project_id=${PROJECT_ID}'
     id: 'Terraform Apply'
     dir: '4-appmod'
 
