@@ -8,3 +8,7 @@ variable "secret_id" {
 variable "project_id" {
   type        = string
 }
+
+variable "tf_bucket_id" {
+  type = string
+}
