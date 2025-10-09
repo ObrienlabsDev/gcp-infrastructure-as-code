@@ -15,6 +15,7 @@ module "postgresql-db" {
   edition              = "ENTERPRISE_PLUS"
   tier                 = "db-perf-optimized-N-2"
   data_cache_enabled   = true
+  disk_size            = var.cloudsql_disk_size
 
   deletion_protection = false
 

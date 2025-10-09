@@ -26,3 +26,8 @@ variable "db_name" {
   description = "The name of the SQL Database instance"
   default     = "example-postgres-public"
 }
+
+
+variable "cloudsql_disk_size" {
+  default     = "10"
+}
