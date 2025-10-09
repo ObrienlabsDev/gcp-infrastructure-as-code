@@ -48,6 +48,11 @@ Apply complete! Resources: 4 added, 0 changed, 0 destroyed.
 
 # Bootstrap Project
 # Cloud Build Infrastructure
+
+Triggered builds run on git branch merges
+<img width="2926" height="262" alt="Screenshot 2025-10-09 at 16 40 15" src="https://github.com/user-attachments/assets/0ac5fd49-015e-4567-9e33-b9483e185ded" />
+
+
 - https://cloud.google.com/build/docs/terraform
 - follow https://cloud.google.com/build/docs/automating-builds/github/connect-repo-github?generation=2nd-gen#terraform
 - Install Cloud Build connector on Github
