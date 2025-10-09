@@ -72,7 +72,7 @@ gcloud services enable secretmanager.googleapis.com
 gcloud services enable cloudbuild.googleapis.com
 # for cloud sql
 gcloud services enable compute.googleapis.com
-
+gcloud services enable sqladmin.googleapis.com
 
 ```
 ## Terraform apply
