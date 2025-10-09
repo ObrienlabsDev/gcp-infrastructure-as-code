@@ -18,24 +18,16 @@ steps:
     id: 'Terraform Validate'
     dir: '4-appmod'
 
-  - name: 'hashicorp/terraform:1.5.7'
-    entrypoint: 'terraform'
-    args:
-      - 'plan'
-      - '-out=tfplan'
-      # cloud Build automatically populates $PROJECT_ID.
-      - '-var=project_id=${PROJECT_ID}'
-    id: 'Terraform Plan'
-    dir: '4-appmod'
-
   #- name: 'hashicorp/terraform:1.5.7'
   #  entrypoint: 'terraform'
   #  args:
-  #    - 'apply'
-  #    - '-out=tfapply'
+  #    - 'destroy'
+  #    - '-out=tfdestroy'
+  #    # cloud Build automatically populates $PROJECT_ID.
   #    - '-var=project_id=${PROJECT_ID}'
-  #  id: 'Terraform Apply'
+  #  id: 'Terraform Destroy'
   #  dir: '4-appmod'
+
 
 # Save the generated plan file as an artifact.
 # This allows you to inspect the plan after the build completes or use it

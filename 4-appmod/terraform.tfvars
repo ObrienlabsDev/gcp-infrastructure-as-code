@@ -1,3 +1,2 @@
 // stub
-project_id="gcp-infrastructure-as-code"
-secret_id="github_2_test"
+secret_id="github_4_test"
