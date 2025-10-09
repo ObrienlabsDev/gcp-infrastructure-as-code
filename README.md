@@ -70,6 +70,9 @@ cd 1-cloud-build/
 ```
 gcloud services enable secretmanager.googleapis.com
 gcloud services enable cloudbuild.googleapis.com
+# for cloud sql
+gcloud services enable compute.googleapis.com
+
 
 ```
 ## Terraform apply
