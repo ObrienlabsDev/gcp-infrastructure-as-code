@@ -39,15 +39,6 @@ steps:
     id: 'Terraform Apply'
     dir: '4-appmod'
 
-  - name: 'hashicorp/terraform:1.5.7'
-    entrypoint: 'terraform'
-    args:
-      - 'destroy'
-      - '-var-file=terraform.tfvars'
-      - '-var=project_id=${PROJECT_ID}'
-      - '-auto-approve'
-    id: 'Terraform destroy'
-    dir: '4-appmod'
 # Save the generated plan file as an artifact.
 # This allows you to inspect the plan after the build completes or use it
 # in a subsequent 'apply' build.

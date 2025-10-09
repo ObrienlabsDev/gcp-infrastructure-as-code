@@ -50,3 +50,5 @@ resource "google_cloudbuildv2_connection" "my_connection" {
     depends_on = [google_secret_manager_secret_iam_policy.policy]
 }
 
+# terraform bucket
+
