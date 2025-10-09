@@ -29,15 +29,15 @@ steps:
     id: 'Terraform Plan'
     dir: '4-appmod'
 
-  - name: 'hashicorp/terraform:1.5.7'
-    entrypoint: 'terraform'
-    args:
-      - 'apply'
-      - '-var-file=terraform.tfvars'
-      - '-var=project_id=${PROJECT_ID}'
-      - '-auto-approve'
-    id: 'Terraform Apply'
-    dir: '4-appmod'
+#  - name: 'hashicorp/terraform:1.5.7'
+#    entrypoint: 'terraform'
+#    args:
+#      - 'apply'
+#      - '-var-file=terraform.tfvars'
+#      - '-var=project_id=${PROJECT_ID}'
+#      - '-auto-approve'
+#    id: 'Terraform Apply'
+#    dir: '4-appmod'
 
   - name: 'hashicorp/terraform:1.5.7'
     entrypoint: 'terraform'
