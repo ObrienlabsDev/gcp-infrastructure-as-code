@@ -1,11 +1,11 @@
 # from https://cloud.google.com/vpc/docs/create-modify-vpc-networks#create-custom-network
 
-resource "google_compute_network" "vpc_network" {
-  project                 = var.project_id 
-  name                    = var.vpc_name
-  auto_create_subnetworks = false
-  mtu                     = 1460
-}
+#resource "google_compute_network" "vpc_network" {
+#  project                 = var.project_id 
+#  name                    = var.vpc_name
+#  auto_create_subnetworks = false
+#  mtu                     = 1460
+#}
 
 
 module "test-vpc-module" {
