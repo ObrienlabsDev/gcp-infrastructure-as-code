@@ -7,6 +7,7 @@ resource "google_compute_network" "vpc_network" {
   mtu                     = 1460
 }
 
+
 module "test-vpc-module" {
   source       = "terraform-google-modules/network/google"
   version      = "~> 12.0"
