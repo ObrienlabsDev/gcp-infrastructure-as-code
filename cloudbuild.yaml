@@ -10,13 +10,15 @@ steps:
     entrypoint: 'terraform'
     args: ['init']
     id: 'Terraform Init'
-    dir: '4-appmod'
+    #dir: '4-appmod'
+    dir: '3-inframod'
 
   - name: 'hashicorp/terraform:1.5.7'
     entrypoint: 'terraform'
     args: ['validate']
     id: 'Terraform Validate'
-    dir: '4-appmod'
+    #dir: '4-appmod'
+    dir: '3-inframod'
 
   - name: 'hashicorp/terraform:1.5.7'
     entrypoint: 'terraform'
@@ -27,7 +29,8 @@ steps:
       - '-var=project_id=${PROJECT_ID}'
       - '-var-file=terraform.tfvars'
     id: 'Terraform Plan'
-    dir: '4-appmod'
+    #dir: '4-appmod'
+    dir: '3-inframod'
 
   - name: 'hashicorp/terraform:1.5.7'
     entrypoint: 'terraform'
@@ -37,7 +40,8 @@ steps:
       - '-var=project_id=${PROJECT_ID}'
       - '-auto-approve'
     id: 'Terraform Apply'
-    dir: '4-appmod'
+    #dir: '4-appmod'
+    dir: '3-inframod'
 
 # Save the generated plan file as an artifact.
 # This allows you to inspect the plan after the build completes or use it
