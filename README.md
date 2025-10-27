@@ -3,6 +3,10 @@ private version https://github.com/ObrienlabsDev/gcp-infrastructure-as-code-priv
 
 # Installation
 ## gcloud CLI
+
+### gcloud auth login
+<img width="1311" height="1065" alt="image" src="https://github.com/user-attachments/assets/59d9a009-13c8-44fc-899c-5bbcf87ff40b" />
+
 ## Terraform 
 Use tfswitch
 ```
