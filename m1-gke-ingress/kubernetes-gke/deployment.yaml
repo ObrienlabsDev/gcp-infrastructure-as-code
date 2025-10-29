@@ -22,5 +22,7 @@ spec:
           ports:
             - containerPort: 8080
           env:
-            - name: key
-              value: value
+          - name: key
+            value: value
+          - name: "PORT"
+            value: "50000"
