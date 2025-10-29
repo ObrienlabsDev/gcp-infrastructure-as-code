@@ -3,10 +3,12 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: magellan
+  name: magellan-nbi
+  namespace: magellan
   annotations:
     # If the class annotation is not specified it defaults to "gce".
-    kubernetes.io/ingress.class: "gce"
+    #kubernetes.io/ingress.class: "gce"
+    spec.ingressClassName: "gce"
 spec:
   rules:
   - http:
