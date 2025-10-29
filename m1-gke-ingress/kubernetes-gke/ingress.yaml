@@ -1,0 +1,20 @@
+# see https://github.com/ObrienlabsDev/gcp-infrastructure-as-code/issues/10
+# see https://cloud.google.com/kubernetes-engine/docs/how-to/load-balance-ingress#gcloud
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: magellan
+  annotations:
+    # If the class annotation is not specified it defaults to "gce".
+    kubernetes.io/ingress.class: "gce"
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /*
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: magellan-nbi
+            port:
+              number: 80
