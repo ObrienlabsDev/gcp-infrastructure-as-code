@@ -25,4 +25,4 @@ spec:
           - name: key
             value: value
           - name: "PORT"
-            value: "50000"
+            value: "8080"

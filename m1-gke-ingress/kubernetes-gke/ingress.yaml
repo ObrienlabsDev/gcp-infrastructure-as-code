@@ -18,5 +18,6 @@ spec:
         backend:
           service:
             name: magellan-nbi
+            namespace: magellan
             port:
-              number: 80
+              number: 8080
