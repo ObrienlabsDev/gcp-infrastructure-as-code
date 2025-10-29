@@ -1,0 +1,26 @@
+#
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: magellan-nbi
+  namespace: magellan
+  labels:
+    app: magellan-nbi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: magellan-nbi
+  template:
+    metadata:
+      labels:
+        app: magellan-nbi
+    spec:
+      containers:
+        - name: biometric-nbi #https://hub.docker.com/repository/docker/obrienlabs/magellan-nbi/tags
+          image: obrienlabs/magellan-nbi:0.0.3-ia64
+          ports:
+            - containerPort: 8080
+          env:
+            - name: key
+              value: value
