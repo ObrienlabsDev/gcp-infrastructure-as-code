@@ -6,15 +6,15 @@ metadata:
   name: magellan-nbi
   namespace: magellan
   annotations:
-    # If the class annotation is not specified it defaults to "gce".
-    #kubernetes.io/ingress.class: "gce"
-    spec.ingressClassName: "gce"
+    # If the class annotation is not specified it defaults to "gce" - GKE continues to use this deprecated annotation
+    kubernetes.io/ingress.class: "gce"
+    #spec.ingressClassName: "gce" # do not use
 spec:
   rules:
   - http:
       paths:
-      - path: /*
-        pathType: ImplementationSpecific
+      - path: /* # https://docs.cloud.google.com/kubernetes-engine/docs/how-to/load-balance-ingress#paths
+        pathType: ImplementationSpecific #Prefix, Exact
         backend:
           service:
             name: magellan-nbi
