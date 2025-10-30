@@ -21,8 +21,18 @@ spec:
           image: obrienlabs/magellan-nbi:0.0.3-ia64
           ports:
             - containerPort: 8080
-          env:
-          - name: key
-            value: value
-          - name: "PORT"
-            value: "8080"
+          livenessProbe:
+            httpGet:
+              path: /nbi/actuator/health # Spring Boot Actuator liveness endpoint
+              port: 8080
+            initialDelaySeconds: 30 # Time to wait before first probe
+            periodSeconds: 10 # How often to perform the probe
+            failureThreshold: 3 # Number of consecutive failures to consider container unhealthy
+          readinessProbe:
+            httpGet:
+              path: /nbi/actuator/health #/nbi/app/health 
+              port: 8080
+            initialDelaySeconds: 15 
+            periodSeconds: 5
+            failureThreshold: 3 
+
