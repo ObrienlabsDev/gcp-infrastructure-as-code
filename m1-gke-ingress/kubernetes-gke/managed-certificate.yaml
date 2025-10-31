@@ -1,0 +1,9 @@
+# https://docs.cloud.google.com/kubernetes-engine/docs/how-to/managed-certs#setting_up_a_google-managed_certificate
+apiVersion: networking.gke.io/v1
+kind: ManagedCertificate
+metadata:
+  name: managed-cert
+spec:
+  domains:
+    - magellan.obrienlabs.dev
+    - gke.obrienlabs.dev
