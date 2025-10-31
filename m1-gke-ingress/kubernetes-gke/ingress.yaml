@@ -6,10 +6,17 @@ metadata:
   name: magellan-nbi
   namespace: magellan
   annotations:
+    kubernetes.io/ingress.global-static-ip-name: magellan-obrienlabs-dev-ip
+    networking.gke.io/managed-certificates: managed-cert
     # If the class annotation is not specified it defaults to "gce" - GKE continues to use this deprecated annotation
     kubernetes.io/ingress.class: "gce"
     #spec.ingressClassName: "gce" # do not use
 spec:
+#  defaultBackend:
+#    service:
+#      name: magellan-nbi
+#      port:
+#        number: 8080
   rules:
   - http:
       paths:
