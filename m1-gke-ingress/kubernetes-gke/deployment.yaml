@@ -18,7 +18,8 @@ spec:
     spec:
       containers:
         - name: biometric-nbi #https://hub.docker.com/repository/docker/obrienlabs/magellan-nbi/tags
-          image: obrienlabs/magellan-nbi:0.0.3-ia64
+         #image: obrienlabs/magellan-nbi:0.0.3-ia64
+          image: us-east4-docker.pkg.dev/biometric-backend-gke-man-old/magellan-nbi/magellan-nbi:0.0.4-ia64
           ports:
             - containerPort: 8080
           livenessProbe:
