@@ -6,8 +6,8 @@ metadata:
   name: magellan-nbi
   namespace: magellan
   annotations:
-    kubernetes.io/ingress.global-static-ip-name: magellan-obrienlabs-dev-ip
-    networking.gke.io/managed-certificates: managed-cert
+    #kubernetes.io/ingress.global-static-ip-name: magellan-obrienlabs-dev-ip
+    #networking.gke.io/managed-certificates: managed-cert
     # If the class annotation is not specified it defaults to "gce" - GKE continues to use this deprecated annotation
     kubernetes.io/ingress.class: "gce"
     #spec.ingressClassName: "gce" # do not use
@@ -20,7 +20,7 @@ spec:
   rules:
   - http:
       paths:
-      - path: /*  # * # https://docs.cloud.google.com/kubernetes-engine/docs/how-to/load-balance-ingress#paths
+      - path: /  # * # https://docs.cloud.google.com/kubernetes-engine/docs/how-to/load-balance-ingress#paths
         pathType: ImplementationSpecific #Prefix, Exact
         backend:
           service:
