@@ -20,7 +20,7 @@ spec:
   rules:
   - http:
       paths:
-      - path: /*  # * # https://docs.cloud.google.com/kubernetes-engine/docs/how-to/load-balance-ingress#paths
+      - path: /  # * # https://docs.cloud.google.com/kubernetes-engine/docs/how-to/load-balance-ingress#paths
         pathType: ImplementationSpecific #Prefix, Exact
         backend:
           service:
