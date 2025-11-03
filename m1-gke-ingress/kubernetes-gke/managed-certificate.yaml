@@ -6,4 +6,3 @@ metadata:
 spec:
   domains:
     - magellan.obrienlabs.dev
-    - gke.obrienlabs.dev
