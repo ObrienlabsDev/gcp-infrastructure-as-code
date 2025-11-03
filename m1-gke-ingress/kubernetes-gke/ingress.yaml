@@ -12,11 +12,11 @@ metadata:
     kubernetes.io/ingress.class: "gce"
     #spec.ingressClassName: "gce" # do not use
 spec:
-#  defaultBackend:
-#    service:
-#      name: magellan-nbi
-#      port:
-#        number: 8080
+  defaultBackend:
+    service:
+      name: magellan-nbi
+      port:
+        number: 8080
   rules:
   - http:
       paths:
