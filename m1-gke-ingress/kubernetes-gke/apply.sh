@@ -2,12 +2,12 @@
 
 
 # VPC
-#gcloud compute networks create dev-man --project=biometric-backend-gke-man-old --description=dev-man --subnet-mode=custom --mtu=1460 --bgp-routing-mode=global --bgp-best-path-selection-mode=legacy
-#gcloud compute networks subnets create dev-man-sn --project=biometric-backend-gke-man-old --description=dev-man-sn --range=10.0.0.0/16 --stack-type=IPV4_ONLY --network=dev-man --region=us-central1 --enable-private-ip-google-access
-#gcloud compute firewall-rules create dev-man-allow-custom --project=biometric-backend-gke-man-old --network=projects/biometric-backend-gke-man-old/global/networks/dev-man --description=Allows\ connection\ from\ any\ source\ to\ any\ instance\ on\ the\ network\ using\ custom\ protocols. --direction=INGRESS --priority=65534 --source-ranges=10.0.0.0/16 --action=ALLOW --rules=all
-#gcloud compute firewall-rules create dev-man-allow-icmp --project=biometric-backend-gke-man-old --network=projects/biometric-backend-gke-man-old/global/networks/dev-man --description=Allows\ ICMP\ connections\ from\ any\ source\ to\ any\ instance\ on\ the\ network. --direction=INGRESS --priority=65534 --source-ranges=0.0.0.0/0 --action=ALLOW --rules=icmp
-#gcloud compute firewall-rules create dev-man-allow-rdp --project=biometric-backend-gke-man-old --network=projects/biometric-backend-gke-man-old/global/networks/dev-man --description=Allows\ RDP\ connections\ from\ any\ source\ to\ any\ instance\ on\ the\ network\ using\ port\ 3389. --direction=INGRESS --priority=65534 --source-ranges=0.0.0.0/0 --action=ALLOW --rules=tcp:3389
-#gcloud compute firewall-rules create dev-man-allow-ssh --project=biometric-backend-gke-man-old --network=projects/biometric-backend-gke-man-old/global/networks/dev-man --description=Allows\ TCP\ connections\ from\ any\ source\ to\ any\ instance\ on\ the\ network\ using\ port\ 22. --direction=INGRESS --priority=65534 --source-ranges=0.0.0.0/0 --action=ALLOW --rules=tcp:22
+gcloud compute networks create dev-man --project=biometric-backend-gke-man-old --description=dev-man --subnet-mode=custom --mtu=1460 --bgp-routing-mode=global --bgp-best-path-selection-mode=legacy
+gcloud compute networks subnets create dev-man-sn --project=biometric-backend-gke-man-old --description=dev-man-sn --range=10.0.0.0/16 --stack-type=IPV4_ONLY --network=dev-man --region=us-central1 --enable-private-ip-google-access
+gcloud compute firewall-rules create dev-man-allow-custom --project=biometric-backend-gke-man-old --network=projects/biometric-backend-gke-man-old/global/networks/dev-man --description=Allows\ connection\ from\ any\ source\ to\ any\ instance\ on\ the\ network\ using\ custom\ protocols. --direction=INGRESS --priority=65534 --source-ranges=10.0.0.0/16 --action=ALLOW --rules=all
+gcloud compute firewall-rules create dev-man-allow-icmp --project=biometric-backend-gke-man-old --network=projects/biometric-backend-gke-man-old/global/networks/dev-man --description=Allows\ ICMP\ connections\ from\ any\ source\ to\ any\ instance\ on\ the\ network. --direction=INGRESS --priority=65534 --source-ranges=0.0.0.0/0 --action=ALLOW --rules=icmp
+gcloud compute firewall-rules create dev-man-allow-rdp --project=biometric-backend-gke-man-old --network=projects/biometric-backend-gke-man-old/global/networks/dev-man --description=Allows\ RDP\ connections\ from\ any\ source\ to\ any\ instance\ on\ the\ network\ using\ port\ 3389. --direction=INGRESS --priority=65534 --source-ranges=0.0.0.0/0 --action=ALLOW --rules=tcp:3389
+gcloud compute firewall-rules create dev-man-allow-ssh --project=biometric-backend-gke-man-old --network=projects/biometric-backend-gke-man-old/global/networks/dev-man --description=Allows\ TCP\ connections\ from\ any\ source\ to\ any\ instance\ on\ the\ network\ using\ port\ 22. --direction=INGRESS --priority=65534 --source-ranges=0.0.0.0/0 --action=ALLOW --rules=tcp:22
 
 
 # autopilot
@@ -29,6 +29,16 @@ gcloud beta container --project "biometric-backend-gke-man-old" clusters create 
       --node-locations "us-central1-a"
 #--enable-secret-manager --enable-secret-manager-rotation --secret-manager-rotation-interval "120s" \
 
-#kubectl apply -f namespace.yaml
-#kubectl apply -f deployment.yaml
-#kubectl apply -f service.yaml
+kubectl apply -f namespace.yaml
+kubectl apply -f deployment.yaml
+kubectl apply -f service.yaml
+kubectl apply -f managed-certificate.yaml
+# reserve static IP
+# DNS A record (domain to IP)
+# wait for propagation
+kubectl apply -f ingress.yaml
+# wait for provisioning Status = Active
+ kubectl describe managedcertificate managed-cert | grep Status
+# check url
+
+
