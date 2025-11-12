@@ -7,15 +7,14 @@ gcloud config set project $PROJECT_ID
 
 
 infra() {
-# VPC
-gcloud compute networks create $GKE_VPC_NAME --project=$PROJECT_ID --description=$GKE_VPC_NAME --subnet-mode=custom --mtu=1460 --bgp-routing-mode=global --bgp-best-path-selection-mode=legacy
-gcloud compute networks subnets create $GKE_VPC_SN_NAME --project=$PROJECT_ID --description=$GKE_VPC_SN_NAME --range=${VPC_NON_OVERLAPPING_CIDR}/${VPC_NON_OVERLAPPING_CIDR_PREFIX} --stack-type=IPV4_ONLY --network=$GKE_VPC_NAME --region=$GKE_REGION --enable-private-ip-google-access
-gcloud compute firewall-rules create dev-man-allow-custom --project=$PROJECT_ID --network=projects/$PROJECT_ID/global/networks/$GKE_VPC_NAME --description=Allows\ connection\ from\ any\ source\ to\ any\ instance\ on\ the\ network\ using\ custom\ protocols. --direction=INGRESS --priority=65534 --source-ranges=10.0.0.0/16 --action=ALLOW --rules=all
-gcloud compute firewall-rules create dev-man-allow-icmp --project=$PROJECT_ID --network=projects/$PROJECT_ID/global/networks/$GKE_VPC_NAME --description=Allows\ ICMP\ connections\ from\ any\ source\ to\ any\ instance\ on\ the\ network. --direction=INGRESS --priority=65534 --source-ranges=0.0.0.0/0 --action=ALLOW --rules=icmp
-gcloud compute firewall-rules create dev-man-allow-rdp --project=$PROJECT_ID --network=projects/$PROJECT_ID/global/networks/$GKE_VPC_NAME --description=Allows\ RDP\ connections\ from\ any\ source\ to\ any\ instance\ on\ the\ network\ using\ port\ 3389. --direction=INGRESS --priority=65534 --source-ranges=0.0.0.0/0 --action=ALLOW --rules=tcp:3389
-gcloud compute firewall-rules create dev-man-allow-ssh --project=$PROJECT_ID --network=projects/$PROJECT_ID/global/networks/$GKE_VPC_NAME --description=Allows\ TCP\ connections\ from\ any\ source\ to\ any\ instance\ on\ the\ network\ using\ port\ 22. --direction=INGRESS --priority=65534 --source-ranges=0.0.0.0/0 --action=ALLOW --rules=tcp:22
+  gcloud compute networks create $GKE_VPC_NAME --project=$PROJECT_ID --description=$GKE_VPC_NAME --subnet-mode=custom --mtu=1460 --bgp-routing-mode=global --bgp-best-path-selection-mode=legacy
+  gcloud compute networks subnets create $GKE_VPC_SN_NAME --project=$PROJECT_ID --description=$GKE_VPC_SN_NAME --range=${VPC_NON_OVERLAPPING_CIDR}/${VPC_NON_OVERLAPPING_CIDR_PREFIX} --stack-type=IPV4_ONLY --network=$GKE_VPC_NAME --region=$GKE_REGION --enable-private-ip-google-access
+  gcloud compute firewall-rules create dev-man-allow-custom --project=$PROJECT_ID --network=projects/$PROJECT_ID/global/networks/$GKE_VPC_NAME --description=Allows\ connection\ from\ any\ source\ to\ any\ instance\ on\ the\ network\ using\ custom\ protocols. --direction=INGRESS --priority=65534 --source-ranges=10.0.0.0/16 --action=ALLOW --rules=all
+  gcloud compute firewall-rules create dev-man-allow-icmp --project=$PROJECT_ID --network=projects/$PROJECT_ID/global/networks/$GKE_VPC_NAME --description=Allows\ ICMP\ connections\ from\ any\ source\ to\ any\ instance\ on\ the\ network. --direction=INGRESS --priority=65534 --source-ranges=0.0.0.0/0 --action=ALLOW --rules=icmp
+  gcloud compute firewall-rules create dev-man-allow-rdp --project=$PROJECT_ID --network=projects/$PROJECT_ID/global/networks/$GKE_VPC_NAME --description=Allows\ RDP\ connections\ from\ any\ source\ to\ any\ instance\ on\ the\ network\ using\ port\ 3389. --direction=INGRESS --priority=65534 --source-ranges=0.0.0.0/0 --action=ALLOW --rules=tcp:3389
+  gcloud compute firewall-rules create dev-man-allow-ssh --project=$PROJECT_ID --network=projects/$PROJECT_ID/global/networks/$GKE_VPC_NAME --description=Allows\ TCP\ connections\ from\ any\ source\ to\ any\ instance\ on\ the\ network\ using\ port\ 22. --direction=INGRESS --priority=65534 --source-ranges=0.0.0.0/0 --action=ALLOW --rules=tcp:22
 
-# reserve named IP for LB
+  # reserve named IP for LB
 }
 # autopilot
 #gcloud beta container --project "$PROJECT_ID" clusters create-auto "$GKE_CLUSTER_NAME" --region "$GKE_REGION" --release-channel "stable" \
@@ -26,6 +25,7 @@ gcloud compute firewall-rules create dev-man-allow-ssh --project=$PROJECT_ID --n
 #gcloud beta compute routers nats create nat --router=my-router --region=$GKE_REGION --auto-allocate-nat-external-ips --nat-all-subnet-ip-ranges --project=$PROJECT_ID
 
 # manual
+
 gcloud beta container --project $PROJECT_ID clusters create "$GKE_CLUSTER_NAME" --zone "${GKE_REGION}-a" --no-enable-basic-auth --cluster-version "1.34.1-gke.1829001" \
   --release-channel "rapid" --machine-type "e2-medium" --image-type "COS_CONTAINERD" --disk-type "pd-balanced" --disk-size "80" --metadata disable-legacy-endpoints=true \
   --scopes "https://www.googleapis.com/auth/cloud-platform" --num-nodes "3" --logging=NONE --enable-ip-alias \

@@ -10,16 +10,27 @@ kubectl config use-context $KUBECTL_CONTEXT
 kubectl get nodes
 
 kubernetes() {
-
-kubectl delete -f managed-certificate.yaml
-# remove reserve static IP
-# remove NS A record (domain to IP)
-# wait for propagation
-kubectl delete -f ingress.yaml
-kubectl delete -f service.yaml
-kubectl delete -f deployment.yaml
-kubectl delete -f namespace.yaml
+  kubectl delete -f managed-certificate.yaml
+  # remove reserve static IP
+  # remove NS A record (domain to IP)
+  # wait for propagation
+  kubectl delete -f ingress.yaml
+  kubectl delete -f service.yaml
+  kubectl delete -f deployment.yaml
+  kubectl delete -f namespace.yaml
 }
 
-echo "Deleting cluster: ${GKE_CLUSTER_NAME}"
-gcloud container clusters delete $GKE_CLUSTER_NAME --zone $GKE_ZONE --quiet
+infra() {
+  echo "Deleting cluster: ${GKE_CLUSTER_NAME}"
+  gcloud container clusters delete $GKE_CLUSTER_NAME --zone $GKE_ZONE --quiet
+
+  gcloud compute firewall-rules delete dev-man-allow-custom --project=$PROJECT_ID --quiet
+  gcloud compute firewall-rules delete dev-man-allow-icmp --project=$PROJECT_ID --quiet
+  gcloud compute firewall-rules delete dev-man-allow-rdp --project=$PROJECT_ID --quiet 
+  gcloud compute firewall-rules delete dev-man-allow-ssh --project=$PROJECT_ID --quiet 
+  gcloud compute networks subnets delete $GKE_VPC_SN_NAME --project=$PROJECT_ID --region=$GKE_REGION --quiet
+  gcloud compute networks delete $GKE_VPC_NAME --project=$PROJECT_ID --quiet 
+}
+
+kubernetes
+infra
