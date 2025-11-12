@@ -14,7 +14,7 @@ infra() {
   gcloud compute firewall-rules create dev-man-allow-rdp --project=$PROJECT_ID --network=projects/$PROJECT_ID/global/networks/$GKE_VPC_NAME --description=Allows\ RDP\ connections\ from\ any\ source\ to\ any\ instance\ on\ the\ network\ using\ port\ 3389. --direction=INGRESS --priority=65534 --source-ranges=0.0.0.0/0 --action=ALLOW --rules=tcp:3389
   gcloud compute firewall-rules create dev-man-allow-ssh --project=$PROJECT_ID --network=projects/$PROJECT_ID/global/networks/$GKE_VPC_NAME --description=Allows\ TCP\ connections\ from\ any\ source\ to\ any\ instance\ on\ the\ network\ using\ port\ 22. --direction=INGRESS --priority=65534 --source-ranges=0.0.0.0/0 --action=ALLOW --rules=tcp:22
 
-  # reserve named IP for LB
+  # reserve named IP for LB named magellan-obrienlabs-dev-ip and create an A record on the domain
 }
 # autopilot
 #gcloud beta container --project "$PROJECT_ID" clusters create-auto "$GKE_CLUSTER_NAME" --region "$GKE_REGION" --release-channel "stable" \
@@ -25,6 +25,8 @@ infra() {
 #gcloud beta compute routers nats create nat --router=my-router --region=$GKE_REGION --auto-allocate-nat-external-ips --nat-all-subnet-ip-ranges --project=$PROJECT_ID
 
 # manual
+
+infra
 
 gcloud beta container --project $PROJECT_ID clusters create "$GKE_CLUSTER_NAME" --zone "${GKE_REGION}-a" --no-enable-basic-auth --cluster-version "1.34.1-gke.1829001" \
   --release-channel "rapid" --machine-type "e2-medium" --image-type "COS_CONTAINERD" --disk-type "pd-balanced" --disk-size "80" --metadata disable-legacy-endpoints=true \
@@ -53,5 +55,9 @@ kubectl apply -f ingress.yaml
 # wait for provisioning Status = Active
  kubectl describe managedcertificate managed-cert | grep Status
 # check url
+ kubectl get managedCertificate --all-namespaces
+ echo "wait for up to 45 min for the certificate to pickup the DNS A record to the LB named static IP"
+
+
 
 
