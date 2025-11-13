@@ -47,6 +47,8 @@ kubectl get nodes
 kubectl apply -f namespace.yaml
 kubectl apply -f deployment.yaml
 kubectl apply -f service.yaml
+# the managed-certificate must in the same namespace as the ingress - set the default in the context instead of the yaml
+kubectl config set-context --current --namespace=magellan
 kubectl apply -f managed-certificate.yaml
 # reserve static IP
 # DNS A record (domain to IP)
