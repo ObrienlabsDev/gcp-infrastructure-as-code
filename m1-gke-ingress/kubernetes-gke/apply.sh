@@ -5,6 +5,16 @@ source vars.sh
 
 gcloud config set project $PROJECT_ID
 
+boot() {
+  gcloud services enable container.googleapis.com
+  gcloud services enable compute.googleapis.com
+  gcloud compute addresses list
+  gcloud cmpute addresses create mageelan-obrienlabs-dev-ip --region=$GKE_REGION
+  gcloud compute addresses list
+
+  # disable for non-autopilo
+  # constraints/compute.vmExternalIPAccess
+}
 
 infra() {
   gcloud compute networks create $GKE_VPC_NAME --project=$PROJECT_ID --description=$GKE_VPC_NAME --subnet-mode=custom --mtu=1460 --bgp-routing-mode=global --bgp-best-path-selection-mode=legacy
@@ -16,17 +26,19 @@ infra() {
 
   # reserve named IP for LB named magellan-obrienlabs-dev-ip and create an A record on the domain
 }
+
+boot
+infra
+
 # autopilot
 #gcloud beta container --project "$PROJECT_ID" clusters create-auto "$GKE_CLUSTER_NAME" --region "$GKE_REGION" --release-channel "stable" \
 #  --enable-private-nodes --enable-dns-access --enable-k8s-tokens-via-dns --enable-k8s-certs-via-dns --enable-ip-access --enable-master-global-access --enable-google-cloud-access \
 #   --network "projects/$PROJECT_ID/global/networks/$GKE_VPC_NAME" --subnetwork "projects/$PROJECT_ID/regions/$GKE_REGION/subnetworks/$GKE_VPC_SN_NAME" \
-#   --cluster-ipv4-cidr $GKE_NON_OVERLAPPING_SUBNET_CIDR}/${GKE_NON_OVERLAPPING_SUBNET_CIDR_PREFIX} --binauthz-evaluation-mode=DISABLED --scopes=https://www.googleapis.com/auth/cloud-platform --enable-secret-manager
+#   --cluster-ipv4-cidr $GKE_NON_OVERLAPPING_SUBNET_CIDR/${GKE_NON_OVERLAPPING_SUBNET_CIDR_PREFIX} --binauthz-evaluation-mode=DISABLED --scopes=https://www.googleapis.com/auth/cloud-platform --enable-secret-manager
 #gcloud compute routers create my-router --region $GKE_REGION --network default --project=$PROJECT_ID
 #gcloud beta compute routers nats create nat --router=my-router --region=$GKE_REGION --auto-allocate-nat-external-ips --nat-all-subnet-ip-ranges --project=$PROJECT_ID
 
 # manual
-
-infra
 
 gcloud beta container --project $PROJECT_ID clusters create "$GKE_CLUSTER_NAME" --zone "${GKE_REGION}-a" --no-enable-basic-auth --cluster-version "1.34.1-gke.1829001" \
   --release-channel "rapid" --machine-type "e2-medium" --image-type "COS_CONTAINERD" --disk-type "pd-balanced" --disk-size "80" --metadata disable-legacy-endpoints=true \
