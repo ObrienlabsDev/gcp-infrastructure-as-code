@@ -10,6 +10,8 @@ kubectl config use-context $KUBECTL_CONTEXT
 kubectl get nodes
 
 kubernetes() {
+  # the managedCertificate must be in the same namespace as the ingress - set the default namespace in the context instead of the yaml (cannot there)
+  kubectl config set-context --current --namespace=magellan
   kubectl delete -f managed-certificate.yaml
   # remove reserve static IP
   # remove NS A record (domain to IP)
