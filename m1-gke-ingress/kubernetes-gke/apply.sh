@@ -8,6 +8,8 @@ gcloud config set project $PROJECT_ID
 boot() {
   gcloud services enable container.googleapis.com
   gcloud services enable compute.googleapis.com
+  gcloud services enable certificatemanager.googleapis.com
+  
   gcloud compute addresses list
   gcloud cmpute addresses create mageelan-obrienlabs-dev-ip --region=$GKE_REGION
   gcloud compute addresses list
