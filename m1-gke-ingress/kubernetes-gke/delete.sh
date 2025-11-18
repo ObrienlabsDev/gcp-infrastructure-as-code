@@ -10,7 +10,7 @@ kubectl config use-context $KUBECTL_CONTEXT
 kubectl get nodes
 
 kubernetes() {
-  # the managedCertificate must be in the same namespace as the ingress - set the default namespace in the context instead of the yaml (cannot there)
+  # the managedCertificate must be in the same namespace as the ingress - set the default namespace in the context instead of the yaml (no namespace in the yaml)
   kubectl config set-context --current --namespace=magellan
   kubectl delete -f managed-certificate.yaml
   # remove reserve static IP
@@ -23,8 +23,12 @@ kubernetes() {
 }
 
 infra() {
-  echo "Deleting cluster: ${GKE_CLUSTER_NAME}"
+  echo "Deleting autopilot or standard cluster: ${GKE_CLUSTER_NAME}"
+  # GKE standard uses the zone
   gcloud container clusters delete $GKE_CLUSTER_NAME --zone $GKE_ZONE --quiet
+  # GKE autopilot uses the region
+  gcloud container clusters delete $GKE_CLUSTER_NAME --zone $GKE_REGION --quiet
+
 
   gcloud compute firewall-rules delete dev-man-allow-custom --project=$PROJECT_ID --quiet
   gcloud compute firewall-rules delete dev-man-allow-icmp --project=$PROJECT_ID --quiet
