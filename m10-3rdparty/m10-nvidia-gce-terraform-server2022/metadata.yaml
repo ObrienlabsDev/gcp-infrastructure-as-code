@@ -1,0 +1,96 @@
+apiVersion: blueprints.cloud.google.com/v1alpha1
+kind: BlueprintMetadata
+metadata:
+  annotations:
+    autogenSpecType: SINGLE_VM
+    config.kubernetes.io/local-config: "true"
+  name: marketplace-tools
+spec:
+  content: {}
+  info:
+    actuationTool:
+      flavor: Terraform
+      version: '>= 1.2'
+    description: {}
+    softwareGroups:
+    - software:
+      - title: Windows Server 2022
+        version: "2022"
+      type: SG_OS
+    title: Google Cloud Marketplace Terraform Module
+    version: "19.2"
+  interfaces:
+    outputs:
+    - description: Machine type for the compute instance.
+      name: instance_machine_type
+    - description: External IP of the compute instance.
+      name: instance_nat_ip
+    - description: Self-link for the network of the compute instance.
+      name: instance_network
+    - description: Self-link for the compute instance.
+      name: instance_self_link
+    - description: Zone for the compute instance.
+      name: instance_zone
+    variables:
+    - description: The ID of the project in which to provision resources.
+      name: project_id
+      required: true
+      varType: string
+    - description: The name of the deployment and VM instance.
+      name: goog_cm_deployment_name
+      required: true
+      varType: string
+    - defaultValue: projects/mpi-nvidia-vgpu-public/global/images/nv-windows-server-2022-vws-581-42-v202510290321
+      description: The image name for the disk for the VM instance.
+      name: source_image
+      varType: string
+    - defaultValue: us-east1-c
+      description: The zone for the solution to be deployed.
+      name: zone
+      varType: string
+    - defaultValue: pd-balanced
+      description: The boot disk type for the VM instance.
+      name: boot_disk_type
+      varType: string
+    - defaultValue: 50
+      description: The boot disk size for the VM instance in GBs
+      name: boot_disk_size
+      varType: integer
+    - defaultValue: g2-standard-4
+      description: The machine type to create, e.g. e2-small
+      name: machine_type
+      varType: string
+    - defaultValue: nvidia-l4
+      description: The accelerator type resource exposed to this instance. E.g. nvidia-tesla-p100.
+      name: accelerator_type
+      varType: string
+    - defaultValue: 1
+      description: The number of the guest accelerator cards exposed to this instance.
+      name: accelerator_count
+      varType: integer
+    - defaultValue:
+      - default
+      description: The network name to attach the VM instance.
+      name: networks
+      varType: list(string)
+    - defaultValue: []
+      description: The sub network name to attach the VM instance.
+      name: sub_networks
+      varType: list(string)
+    - defaultValue:
+      - EPHEMERAL
+      description: The external IPs assigned to the VM for public access.
+      name: external_ips
+      varType: list(string)
+    - defaultValue: true
+      description: Allow full access to all of Google Cloud Platform APIs on the VM
+      name: enable_cloud_api
+      varType: bool
+    - defaultValue: true
+      description: Enables Cloud Logging.
+      name: enable_cloud_logging
+      varType: bool
+    - defaultValue: true
+      description: Enables Cloud Monitoring.
+      name: enable_cloud_monitoring
+      varType: bool

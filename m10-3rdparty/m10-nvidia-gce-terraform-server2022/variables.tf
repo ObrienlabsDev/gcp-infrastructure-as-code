@@ -1,0 +1,76 @@
+variable "project_id" {
+  description = "The ID of the project in which to provision resources."
+  type        = string
+}
+
+// Marketplace requires this variable name to be declared
+variable "goog_cm_deployment_name" {
+  description = "The name of the deployment and VM instance."
+  type        = string
+}
+
+variable "source_image" {
+  description = "The image name for the disk for the VM instance."
+  type        = string
+  default     = "projects/mpi-nvidia-vgpu-public/global/images/nv-windows-server-2022-vws-581-42-v202510290321"
+}
+
+variable "zone" {
+  description = "The zone for the solution to be deployed."
+  type        = string
+  default     = "us-east1-c"
+}
+
+variable "machine_type" {
+  description = "The machine type to create, e.g. e2-small"
+  type        = string
+  default     = "g2-standard-4"
+}
+
+variable "boot_disk_type" {
+  description = "The boot disk type for the VM instance."
+  type        = string
+  default     = "pd-balanced"
+}
+
+variable "boot_disk_size" {
+  description = "The boot disk size for the VM instance in GBs"
+  type        = number
+  default     = 50
+}
+
+variable "networks" {
+  description = "The network name to attach the VM instance."
+  type        = list(string)
+  default     = ["default"]
+}
+
+variable "sub_networks" {
+  description = "The sub network name to attach the VM instance."
+  type        = list(string)
+  default     = []
+}
+
+variable "external_ips" {
+  description = "The external IPs assigned to the VM for public access."
+  type        = list(string)
+  default     = ["EPHEMERAL"]
+}
+
+variable "accelerator_type" {
+  description = "The accelerator type resource exposed to this instance. E.g. nvidia-tesla-p100."
+  type        = string
+  default     = "nvidia-l4"
+}
+
+variable "accelerator_count" {
+  description = "The number of the guest accelerator cards exposed to this instance."
+  type        = number
+  default     = 1
+}
+
+variable "enable_cloud_api" {
+  description = "Allow full access to all of Google Cloud Platform APIs on the VM"
+  type        = bool
+  default     = true
+}
