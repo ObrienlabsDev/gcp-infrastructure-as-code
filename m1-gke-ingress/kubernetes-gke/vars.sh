@@ -14,4 +14,7 @@ export GKE_NON_OVERLAPPING_SUBNET_CIDR="10.1.0.0"
 export GKE_NON_OVERLAPPING_SUBNET_CIDR_PREFIX=17
 
 # underscore between region and gke_cluster_name not required
+# Standard GKE
+export KUBECTL_CONTEXT=gke_${PROJECT_ID}_${GKE_REGION}_${GKE_CLUSTER_NAME}
+# Autopilot GKE
 export KUBECTL_CONTEXT=gke_${PROJECT_ID}_${GKE_ZONE}_${GKE_CLUSTER_NAME}
