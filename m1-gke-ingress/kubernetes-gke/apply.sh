@@ -30,7 +30,7 @@ infra() {
 }
 
 #boot
-infra
+#infra
 
 # autopilot
 #gcloud beta container --project "$PROJECT_ID" clusters create-auto "$GKE_CLUSTER_NAME" --region "$GKE_REGION" --release-channel "stable" \
@@ -42,7 +42,7 @@ infra
 
 # manual
 
-gcloud beta container --project $PROJECT_ID clusters create "$GKE_CLUSTER_NAME" --zone "${GKE_REGION}-a" --no-enable-basic-auth --cluster-version "1.34.1-gke.1829001" \
+gcloud beta container --project $PROJECT_ID clusters create "$GKE_CLUSTER_NAME" --zone "${GKE_REGION}-a" --no-enable-basic-auth --cluster-version "${GKE_AUTOPILOT_CLUSTER_VERSION}" \
   --release-channel "rapid" --machine-type "e2-medium" --image-type "COS_CONTAINERD" --disk-type "pd-balanced" --disk-size "80" --metadata disable-legacy-endpoints=true \
   --scopes "https://www.googleapis.com/auth/cloud-platform" --num-nodes "3" --logging=NONE --enable-ip-alias \
   --network "projects/$PROJECT_ID/global/networks/$GKE_VPC_NAME" --subnetwork "projects/$PROJECT_ID/regions/$GKE_REGION/subnetworks/$GKE_VPC_SN_NAME" \
