@@ -11,10 +11,10 @@ boot() {
   gcloud services enable certificatemanager.googleapis.com
   
   gcloud compute addresses list
-  gcloud cmpute addresses create mageelan-obrienlabs-dev-ip --region=$GKE_REGION
+  gcloud compute addresses create mageelan-obrienlabs-dev-ip --region=$GKE_REGION
   gcloud compute addresses list
 
-  # disable for non-autopilo
+  # disable for non-autopilot
   # constraints/compute.vmExternalIPAccess
 }
 
@@ -29,7 +29,7 @@ infra() {
   # reserve named IP for LB named magellan-obrienlabs-dev-ip and create an A record on the domain
 }
 
-boot
+#boot
 infra
 
 # autopilot
