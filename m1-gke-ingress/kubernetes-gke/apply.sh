@@ -11,6 +11,7 @@ boot() {
   gcloud services enable certificatemanager.googleapis.com
   
   gcloud compute addresses list
+  # https://docs.cloud.google.com/vpc/docs/reserve-static-external-ip-address#reserve_new_static
   gcloud compute addresses create mageelan-obrienlabs-dev-ip --region=$GKE_REGION
   gcloud compute addresses list
 
