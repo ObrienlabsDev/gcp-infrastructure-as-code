@@ -15,6 +15,12 @@ brew install warrensbox/tap/tfswitch
 tfswitch 1.13.3
 
 export PATH="$PATH:/Users/mi...n/bin"
+
+michaelobrien@mbp8 gcp-bootstrap % vi ~/.bash_profile 
+michaelobrien@mbp8 gcp-bootstrap % source ~/.bash_profile 
+michaelobrien@mbp8 gcp-bootstrap % terraform --version   
+Terraform v1.14.1
+on darwin_arm64
 ```
 
 # Quickstart
