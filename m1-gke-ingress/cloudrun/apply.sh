@@ -63,7 +63,7 @@ create_roles_services()
 docker tag obrienlabs/magellan-nbi:0.0.4-ia64 us-central1-docker.pkg.dev/biometric-backend-cr-man-old/magellan/magellan-nbi:0.0.4-ia64
 docker push central1-docker.pkg.dev/biometric-backend-cr-man-old/magellan/magellan-nbi:0.0.4-ia64
 
-
+# verify addition of --allow-unauthenticated
 gcloud alpha run deploy magellan-nbi /
 --image=us-central1-docker.pkg.dev/biometric-backend-cr-man-old/magellan/magellan-nbi@sha256:e3d09b1f25156525dd1446a56dafae88a65012a48f95012235b938f032275d35 /
 --no-invoker-iam-check /
