@@ -1,42 +1,50 @@
 # from https://cloud.google.com/vpc/docs/create-modify-vpc-networks#create-custom-network
 
-#resource "google_compute_network" "vpc_network" {
-#  project                 = var.project_id 
-#  name                    = var.vpc_name
-#  auto_create_subnetworks = false
-#  mtu                     = 1460
-#}
+locals {
+  subnet_01 = "${var.network_name}-subnet-01"
+  subnet_02 = "${var.network_name}-subnet-02"
+}
 
+module "vpc" {
+  source  = "terraform-google-modules/network/google"
+  version = "~> 11.0"
 
-module "test-vpc-module" {
-  source       = "terraform-google-modules/network/google"
-  version      = "~> 12.0"
-  project_id   = var.project_id 
-  network_name = var.vpc_name
-  mtu          = 1460
+  project_id                             = module.project-factory.project_id
+  network_name                           = var.network_name
+  delete_default_internet_gateway_routes = true
 
   subnets = [
     {
-      subnet_name   = "subnet-01"
+      subnet_name   = local.subnet_01
       subnet_ip     = "10.10.10.0/24"
-      subnet_region = "northamerica-northeast1"
+      subnet_region = var.region
     },
     {
-      subnet_name           = "subnet-02"
+      subnet_name           = local.subnet_02
       subnet_ip             = "10.10.20.0/24"
-      subnet_region         = "northamerica-northeast1"
-      subnet_private_access = "true"
-      subnet_flow_logs      = "false"
+      subnet_region         = var.region
+      subnet_private_access = true
+      subnet_flow_logs      = false #true
     },
-    {
-      subnet_name               = "subnet-03"
-      subnet_ip                 = "10.10.30.0/24"
-      subnet_region             = "northamerica-northeast1"
-      subnet_flow_logs          = "false"
-      subnet_flow_logs_interval = "INTERVAL_10_MIN"
-      subnet_flow_logs_sampling = 0.7
-      subnet_flow_logs_metadata = "INCLUDE_ALL_METADATA"
-      subnet_flow_logs_filter   = "false"
-    }
   ]
+
+  secondary_ranges = {
+    (local.subnet_01) = [
+      {
+        range_name    = "${local.subnet_01}-01"
+        ip_cidr_range = "192.168.64.0/24"
+      },
+      {
+        range_name    = "${local.subnet_01}-02"
+        ip_cidr_range = "192.168.65.0/24"
+      },
+    ]
+
+    (local.subnet_02) = [
+      {
+        range_name    = "${local.subnet_02}-01"
+        ip_cidr_range = "192.168.66.0/24"
+      },
+    ]
+  }
 }

@@ -1,6 +1,6 @@
 terraform {
   backend "gcs" {
-    bucket = "terraform-state-old"
+    bucket = "ops-cicd-old"
     prefix = "terraform/m4-ml-saas/state"
   }
 }
