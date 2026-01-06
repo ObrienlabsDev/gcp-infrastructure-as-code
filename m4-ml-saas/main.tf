@@ -20,7 +20,18 @@ module "project-factory" {
   auto_create_network = false
   default_network_tier = "PREMIUM" # https://cloud.google.com/network-tiers/docs/using-network-service-tiers PREMIUM/STANDARD
   grant_services_security_admin_role = true # for GKE firewall rule creation via GKE service agent
-  activate_apis        = ["appengine.googleapis.com","compute.googleapis.com", "container.googleapis.com", "cloudbilling.googleapis.com", "secretmanager.googleapis.com"] # may require 2nd run - wait for service enablement
+  # VertexAI: gcloud services enable aiplatform.googleapis.com
+  # Cloud Vision: gcloud services enable vision.googleapis.com
+  # Natural Language API: gcloud services enable language.googleapis.com
+  #
+
+  activate_apis = [
+    "aiplatform.googleapis.com",
+    "appengine.googleapis.com",
+    "compute.googleapis.com", 
+    "container.googleapis.com", 
+    "cloudbilling.googleapis.com", 
+    "secretmanager.googleapis.com"] # may require 2nd run - wait for service enablement
   deletion_policy = "DELETE"
 }
 
