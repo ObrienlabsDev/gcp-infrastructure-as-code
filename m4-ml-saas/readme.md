@@ -27,6 +27,7 @@ gcloud storage buckets create gs://ops-cicd-old --location=northamerica-northeas
     "vision.googleapis.com",
     "documentai.googleapis.com",
     "cloudaicompanion.googleapis.com",
+    "storage.googleapis.com",
 ```
 
 ## Deployment

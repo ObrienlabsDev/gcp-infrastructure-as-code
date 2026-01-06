@@ -32,6 +32,7 @@ module "project-factory" {
     "vision.googleapis.com",
     "documentai.googleapis.com",
     "cloudaicompanion.googleapis.com",
+    "storage.googleapis.com",
     "appengine.googleapis.com",
     "compute.googleapis.com", 
     "container.googleapis.com", 
