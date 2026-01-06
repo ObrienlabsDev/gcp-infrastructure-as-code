@@ -23,10 +23,15 @@ module "project-factory" {
   # VertexAI: gcloud services enable aiplatform.googleapis.com
   # Cloud Vision: gcloud services enable vision.googleapis.com
   # Natural Language API: gcloud services enable language.googleapis.com
-  #
+  # Document AI: documentai.googleapis.com
+  # Gemini models: cloudaicompanion.googleapis.com
 
   activate_apis = [
     "aiplatform.googleapis.com",
+    "language.googleapis.com",
+    "vision.googleapis.com",
+    "documentai.googleapis.com",
+    "cloudaicompanion.googleapis.com",
     "appengine.googleapis.com",
     "compute.googleapis.com", 
     "container.googleapis.com", 
