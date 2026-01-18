@@ -3,7 +3,11 @@ variable "project_id" {
   type        = string
 }
 
-// Marketplace requires this variable name to be declared
+variable "project_number" {
+  description = "The project number - required for service account configuration."
+  type        = string
+}
+
 variable "goog_cm_deployment_name" {
   description = "The name of the deployment and VM instance."
   type        = string
@@ -13,6 +17,12 @@ variable "source_image" {
   description = "The image name for the disk for the VM instance."
   type        = string
   default     = "projects/mpi-nvidia-ngc-public/global/images/nvidia-gpu-cloud-vmi-base-2025-9-1-x86-64"
+}
+
+variable "region" {
+  description = "The region for the solution to be deployed."
+  type        = string
+  default     = "us-east1-c"
 }
 
 variable "zone" {
