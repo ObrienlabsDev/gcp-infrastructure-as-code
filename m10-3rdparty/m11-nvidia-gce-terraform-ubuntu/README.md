@@ -3,10 +3,10 @@
 This module deploys a product from Google Cloud Marketplace.
 
 ## Usage
-The provided test configuration can be used by executing:
+The provided test configuration can be used by modifying variables in override.tfvars and the bucket in backet.tf and executing:
 
 ```
-terraform plan --var-file marketplace_test.tfvars --var project_id=<YOUR_PROJECT>
+terraform plan --var-file override.tfvars
 ```
 
 ## Inputs
