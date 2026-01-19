@@ -6,6 +6,8 @@ This module deploys a product from Google Cloud Marketplace.
 The provided test configuration can be used by modifying variables in override.tfvars and the bucket in backet.tf and executing:
 
 ```
+gcloud projects describe "gce-nvidia-olx" --format="value(projectNumber)"
+
 terraform plan --var-file override.tfvars
 ```
 
