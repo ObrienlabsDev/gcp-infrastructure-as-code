@@ -1,5 +1,12 @@
+resource "random_string" "suffix" {
+  length  = 4
+  special = false
+  upper   = false
+}
+
 resource "google_project" "this" {
-  project_id        = var.project_id
+  #project_id        = var.project_id
+  project_id        = "${var.project_id}-${random_string.suffix.result}"
   name              = var.project_name
   billing_account   = var.billing_account
   auto_create_network = var.auto_create_network
@@ -9,6 +16,7 @@ resource "google_project" "this" {
   //org_id    = local.org_set ? var.org_id : null
   folder_id = local.folder_set ? var.folder_id : null
 
+  deletion_policy = "DELETE" # Or ABANDON - not default of PREVENT
   #lifecycle {
   #  precondition {
   #    condition     = (local.org_set && !local.folder_set) || (!local.org_set && local.folder_set)

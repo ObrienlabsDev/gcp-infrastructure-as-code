@@ -15,7 +15,9 @@ locals {
 
 data "google_compute_default_service_account" "default" {
   
-  project = var.project_id
+  #project = var.project_id
+  project = google_project.this.project_id
+
   depends_on = [time_sleep.after_service_enablement]
 }
 

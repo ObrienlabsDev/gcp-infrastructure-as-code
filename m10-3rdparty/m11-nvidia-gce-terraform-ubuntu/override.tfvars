@@ -4,6 +4,7 @@ billing_account = "01A7A4-2FC08D-3C106E"
 # gcp-archetypes
 folder_id = "869569956904"
 #project_id = "cuda-old"
+# TODO: add random IP postfix
 project_id = "gce-nvidia-old-001"
 project_name = "gce-nvidia-old-001"
 
