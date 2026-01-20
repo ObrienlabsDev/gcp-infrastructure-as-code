@@ -52,9 +52,6 @@ resource "time_sleep" "after_service_enablement" {
   }
 }
 
-###############################################################################
-# Org Policy: compute.disableGuestAttributesAccess
-###############################################################################
 
 # Recommended (Org Policy API v2):
 # NOTE: responses use project NUMBER in the policy name, so we build it that way.
