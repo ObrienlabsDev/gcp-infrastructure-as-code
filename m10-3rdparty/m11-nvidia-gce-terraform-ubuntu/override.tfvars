@@ -5,8 +5,8 @@ billing_account = "01A7A4-2FC08D-3C106E"
 folder_id = "869569956904"
 #project_id = "cuda-old"
 # TODO: add random IP postfix
-project_id = "gce-nvidia-old-001"
-project_name = "gce-nvidia-old-001"
+project_id = "gce-nvidia-old"
+project_name = "gce-nvidia-old"
 
 # gcloud projects describe "gce-nvidia-olx" --format="value(projectNumber)"
 #project_number = "196717963363"
