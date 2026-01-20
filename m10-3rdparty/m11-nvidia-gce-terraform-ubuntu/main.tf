@@ -1,76 +1,87 @@
-provider "google" {
-  project = var.project_id
-  default_labels = {
-    goog-partner-solution = "isol_plb32_0014m00001h36sfqaq_ldcwv2kqy3qx5iqd2clmass7maq6qmfu"
+resource "google_project" "this" {
+  project_id        = var.project_id
+  name              = var.project_name
+  billing_account   = var.billing_account
+  auto_create_network = var.auto_create_network
+  labels            = var.labels
+
+  # Exactly one of these should be set:
+  //org_id    = local.org_set ? var.org_id : null
+  folder_id = local.folder_set ? var.folder_id : null
+
+  #lifecycle {
+  #  precondition {
+  #    condition     = (local.org_set && !local.folder_set) || (!local.org_set && local.folder_set)
+  #    error_message = "Set exactly one of org_id or folder_id."
+  #  }
+  #}
+}
+
+# Enable APIs (Service Usage is required to manage services). 
+resource "google_project_service" "enabled" {
+  for_each = var.enabled_services
+
+  project = google_project.this.project_id
+  service = each.value
+
+  # Usually what you want for newly-created projects:
+  disable_on_destroy         = false
+  disable_dependent_services = false
+
+  # Give slow enables time.
+  timeouts {
+    create = "30m"
+    update = "40m"
+    delete = "40m"
+  }
+
+  depends_on = [google_project.this]
+}
+
+# Barrier to avoid "API enabled but not yet usable" races.
+# Provider docs & common issues acknowledge propagation delays. 
+resource "time_sleep" "after_service_enablement" {
+  depends_on = [google_project_service.enabled]
+
+  create_duration = var.service_enablement_wait
+
+  # Re-run the wait if the set of services changes.
+  triggers = {
+    project_id = google_project.this.project_id
+    services   = join(",", sort(tolist(var.enabled_services)))
   }
 }
 
-locals {
-  network_interfaces = [for i, n in var.networks : {
-    network     = n,
-    subnetwork  = length(var.sub_networks) > i ? element(var.sub_networks, i) : null
-    external_ip = length(var.external_ips) > i ? element(var.external_ips, i) : "NONE"
-    }
-  ]
+###############################################################################
+# Org Policy: compute.disableGuestAttributesAccess
+###############################################################################
 
-  metadata = {
-    google-logging-enable    = "0"
-    google-monitoring-enable = "0"
+# Recommended (Org Policy API v2):
+# NOTE: responses use project NUMBER in the policy name, so we build it that way.
+resource "google_org_policy_policy" "disable_guest_attributes_access" {
+  name   = "projects/${google_project.this.number}/policies/compute.disableGuestAttributesAccess"
+  parent = "projects/${google_project.this.number}"
+
+  spec {
+    rules {
+      # For boolean constraints, enforce TRUE means "constraint enforced".
+      # (The constraint itself is "disable guest attributes access".)
+      enforce = var.disable_guest_attributes_access ? "TRUE" : "FALSE"
+    }
   }
+
+  depends_on = [google_project.this]
 }
 
-resource "google_compute_instance" "instance" {
-  name         = "${var.goog_cm_deployment_name}-vm"
-  machine_type = var.machine_type
-  zone         = var.zone
-
-  tags = ["${var.goog_cm_deployment_name}-deployment"]
-
-  boot_disk {
-    device_name = "autogen-vm-tmpl-boot-disk"
-
-    initialize_params {
-      size  = var.boot_disk_size
-      type  = var.boot_disk_type
-      image = var.source_image
-    }
-  }
-
-  metadata = local.metadata
-
-  dynamic "network_interface" {
-    for_each = local.network_interfaces
-    content {
-      network    = network_interface.value.network
-      subnetwork = network_interface.value.subnetwork
-
-      dynamic "access_config" {
-        for_each = network_interface.value.external_ip == "NONE" ? [] : [1]
-        content {
-          nat_ip = network_interface.value.external_ip == "EPHEMERAL" ? null : network_interface.value.external_ip
-        }
-      }
-    }
-  }
-
-  guest_accelerator {
-    type  = var.accelerator_type
-    count = var.accelerator_count
-  }
-
-  scheduling {
-    // GPUs do not support live migration
-    on_host_maintenance = var.accelerator_count > 0 ? "TERMINATE" : "MIGRATE"
-  }
-
-  service_account {
-    email = "${var.project_number}-compute@developer.gserviceaccount.com"//"default"
-    scopes = compact([
-      "https://www.googleapis.com/auth/cloud.useraccounts.readonly",
-      "https://www.googleapis.com/auth/devstorage.read_only",
-      "https://www.googleapis.com/auth/logging.write",
-      "https://www.googleapis.com/auth/monitoring.write"
-      , var.enable_cloud_api == true ? "https://www.googleapis.com/auth/cloud-platform" : null
-    ])
-  }
-}
+# ---------------------------------------------------------------------------
+# Alternative (legacy / v1) resource:
+# google_project_organization_policy is superseded by google_org_policy_policy. 
+#
+# resource "google_project_organization_policy" "disable_guest_attributes_access" {
+#   project    = google_project.this.project_id
+#   constraint = "compute.disableGuestAttributesAccess"
+#   boolean_policy {
+#     enforced = var.disable_guest_attributes_access
+#   }
+# }
+# ---------------------------------------------------------------------------

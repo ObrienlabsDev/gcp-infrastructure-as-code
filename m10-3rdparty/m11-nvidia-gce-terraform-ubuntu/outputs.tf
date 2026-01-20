@@ -28,3 +28,21 @@ output "instance_network" {
   description = "Self-link for the network of the compute instance."
   value       = var.networks[0]
 }
+
+output "project_id" {
+  value = google_project.this.project_id
+}
+
+output "project_number" {
+  value = google_project.this.number
+}
+
+output "enabled_services" {
+  value = sort(tolist(var.enabled_services))
+}
+
+# Use this as a depends_on target for any resources that require enabled APIs.
+output "services_ready_dependency" {
+  value = time_sleep.after_service_enablement.id
+}
+

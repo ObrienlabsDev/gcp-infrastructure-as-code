@@ -3,10 +3,10 @@ variable "project_id" {
   type        = string
 }
 
-variable "project_number" {
-  description = "The project number - required for service account configuration."
-  type        = string
-}
+#variable "project_number" {
+#  description = "The project number - required for service account configuration."
+#  type        = string
+#}
 
 variable "goog_cm_deployment_name" {
   description = "The name of the deployment and VM instance."
@@ -83,4 +83,121 @@ variable "enable_cloud_api" {
   description = "Allow full access to all of Google Cloud Platform APIs on the VM"
   type        = bool
   default     = true
+}
+
+
+
+#variable "project_id" {
+#  description = "Globally-unique GCP project_id (e.g. my-team-prod-1234)."
+#  type        = string
+#}
+
+variable "project_name" {
+  description = "Human-readable project name."
+  type        = string
+}
+
+variable "billing_account" {
+  description = "Billing account ID (e.g. 000000-000000-000000)."
+  type        = string
+}
+
+#variable "org_id" {
+#  description = "Organization ID (set this OR folder_id)."
+#  type        = string
+#  default     = null
+#}
+
+variable "folder_id" {
+  description = "Folder ID (set this OR org_id). Example: folders/1234567890 or just 1234567890 depending on your conventions."
+  type        = string
+  default     = null
+}
+
+variable "auto_create_network" {
+  description = "Whether to create the default VPC network in the new project."
+  type        = bool
+  default     = false
+}
+
+variable "labels" {
+  description = "Project labels."
+  type        = map(string)
+  default     = {}
+}
+
+variable "enabled_services" {
+  description = "APIs to enable in the new project (serviceusage is used under the hood)."
+  type        = set(string)
+
+  # Choose your own defaults; these are common “bootstrap” ones.
+  default = [
+    "serviceusage.googleapis.com",
+    "cloudresourcemanager.googleapis.com",
+    "iam.googleapis.com",
+    "compute.googleapis.com",
+    "orgpolicy.googleapis.com",
+  ]
+}
+
+variable "service_enablement_wait" {
+  description = "How long to wait after enabling APIs to avoid eventual-consistency races."
+  type        = string
+  default     = "90s"
+}
+
+variable "disable_guest_attributes_access" {
+  description = <<EOT
+If true, enforces the Org Policy constraint compute.disableGuestAttributesAccess (disables reading guest attributes via the Compute API).
+If false, sets it to not enforced at the project level.
+EOT
+  type    = bool
+  default = false #true
+}
+
+#variable "default_region" {
+#  description = "Default region for the provider (not used by global resources, but convenient)."
+#  type        = string
+#  default     = "us-central1"
+#}
+
+variable "quota_project_id" {
+  description = <<EOT
+Optional 'quota project' to use for API requests when using User ADC.
+If you see errors saying an API 'requires a quota project', set this.
+EOT
+  type    = string
+  default = null
+}
+
+# Validation: you must set exactly one of org_id or folder_id.
+locals {
+#  org_set    = var.org_id != null && var.org_id != ""
+  folder_set = var.folder_id != null && var.folder_id != ""
+}
+
+
+variable "subnet_cidr" {
+  type        = string
+  default     = "10.10.0.0/24"
+  description = "CIDR range for the subnet."
+}
+
+# SSH access pattern:
+variable "ssh_via_iap" {
+  type        = bool
+  default     = false #true
+  description = "If true: no public IP; SSH via IAP TCP forwarding."
+}
+
+variable "ssh_source_ranges" {
+  type        = list(string)
+  default     = ["0.0.0.0/0"] #["203.0.113.10/32"] # replace with your IP/CIDR if using public SSH
+  description = "Source IP ranges allowed to SSH when NOT using IAP."
+}
+
+variable "assign_external_ip" {
+  type        = bool
+  default     = true #false
+  description = "If true: VM gets a public IP. (Not recommended unless you restrict ssh_source_ranges.)"
 }
