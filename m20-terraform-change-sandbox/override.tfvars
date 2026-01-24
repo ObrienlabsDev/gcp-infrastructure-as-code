@@ -1,7 +1,6 @@
 goog_cm_deployment_name = "nvidia-l4"
 # ol-ty
 billing_account = "01A7A4-2FC08D-3C106E"
-service_enablement_wait = "90s"
 
 # gcp-archetypes-test
 folder_id = "227323786500"
@@ -19,6 +18,8 @@ enabled_services = [
     "compute.googleapis.com",
     "orgpolicy.googleapis.com",
   ]
+service_enablement_wait = "90s"
+
 
 # vpc
 region = "us-east1"
@@ -28,6 +29,14 @@ ssh_source_ranges = ["0.0.0.0/0"] #["203.0.113.10/32"]
 assign_external_ip = true
 
 # GPU
-accelerator_count = 1
+#machine_type = "g2-standard-4"
+accelerator_count = 0
 accelerator_type = "nvidia-l4"
-source_image = "projects/mpi-nvidia-ngc-public/global/images/nvidia-gpu-cloud-vmi-base-2025-9-1-x86-64"
+#source_image = "projects/mpi-nvidia-ngc-public/global/images/nvidia-gpu-cloud-vmi-base-2025-9-1-x86-64"
+source_image = "projects/ubuntu-os-cloud/global/images/ubuntu-minimal-2510-questing-amd64-v20260114"
+
+# CPU
+
+machine_type = "c2d-highcpu-16"
+boot_disk_size = 128
+boot_disk_type = "pd-ssd"
