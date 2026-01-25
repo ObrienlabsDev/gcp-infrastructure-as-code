@@ -4,7 +4,7 @@ GPT-OSS:20b Tokens/sec for various M series and NVidia Ampere, Ada and Grace Bla
 
 20260120 - https://github.com/ObrienlabsDev/blog/issues/160 and https://github.com/ObrienlabsDev/gcp-infrastructure-as-code/tree/main/m10-3rdparty/m11-nvidia-gce-terraform-ubuntu
 
-<img width="843" height="516" alt="Image" src="https://github.com/user-attachments/assets/8d20f266-5cc0-4bf0-8145-e9a1e9e13da1" />
+<img width="843" height="516" alt="Image" src="Screenshot%202026-01-25%20at%2010.11.29.png" />
 
 ## Usage
 Modify the variables in override.tfvars and create/edit the bucket in backet.tf first.
