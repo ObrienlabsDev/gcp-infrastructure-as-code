@@ -1,7 +1,11 @@
 provider "google" {
   #project = var.project_id
   default_labels = {
-    goog-partner-solution = "isol_plb32_0014m00001h36sfqaq_ldcwv2kqy3qx5iqd2clmass7maq6qmfu"
+    team = "obrienlabs-dev"
+    env = "development"
+    iac = "terraform"
+    contact = "michael-obrien4"
+
   }
   # Intentionally NOT setting "project" to the project we're about to create.
   region = var.region
