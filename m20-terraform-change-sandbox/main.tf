@@ -14,7 +14,8 @@ resource "google_project" "this" {
 
   # Exactly one of these should be set:
   //org_id    = local.org_set ? var.org_id : null
-  folder_id = local.folder_set ? var.folder_id : null
+  folder_id = google_folder.subfolder.folder_id
+  //folder_id = local.folder_set ? var.folder_id : null
 
   deletion_policy = "DELETE" # Or ABANDON - not default of PREVENT
   #lifecycle {

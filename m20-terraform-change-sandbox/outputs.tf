@@ -24,6 +24,11 @@ output "instance_network" {
   value       = var.networks[0]
 }
 
+output "folder_id" {
+  value = google_folder.subfolder.folder_id
+}
+
+
 output "project_id" {
   value = google_project.this.project_id
 }

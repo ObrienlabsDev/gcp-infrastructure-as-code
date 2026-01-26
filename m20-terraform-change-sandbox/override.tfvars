@@ -3,7 +3,8 @@ goog_cm_deployment_name = "nvidia-l4"
 billing_account = "01A7A4-2FC08D-3C106E"
 
 # gcp-archetypes-test
-folder_id = "227323786500"
+parent_folder_id = "227323786500"
+
 # TODO: add random IP postfix
 project_id = "gce-archetype-test-old"
 project_name = "gce-archeytpe-test-old"
