@@ -108,6 +108,15 @@ variable "billing_account" {
 #  default     = null
 #}
 
+variable "parent_folder_id" {
+  type        = string
+  default     = null
+}
+
+variable "subfolder_display_name" {
+  type        = string
+  default     = null
+}
 variable "folder_id" {
   description = "Folder ID (set this OR org_id). Example: folders/1234567890 or just 1234567890 depending on your conventions."
   type        = string

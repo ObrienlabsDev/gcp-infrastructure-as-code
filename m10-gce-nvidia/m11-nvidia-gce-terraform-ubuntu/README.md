@@ -243,10 +243,20 @@ After approval, Quotas can take up to 15 min to be fully visible in the Cloud Co
 
 rerun terraform
 
-terraform apply -var-file=override.tfvars -auto-approve
+
+michael@cloudshell:~/wse_github/ObrienlabsDev/gcp-infrastructure-as-code/m10-gce-nvidia/m11-nvidia-gce-terraform-ubuntu (ops-cicd-old)$ terraform apply -var-file=override.tfvars
 
 Plan: 1 to add, 0 to change, 0 to destroy.
-google_compute_instance.instance: Creation complete after 37s [id=projects/gce-nvidia-old-8eby/zones/us-east1-c/instances/nvidia-l4-vm]
+
+Changes to Outputs:
+  + instance_nat_ip           = (known after apply)
+  + instance_self_link        = (known after apply)
+
+google_compute_instance.instance: Creating...
+google_compute_instance.instance: Still creating... [10s elapsed]
+google_compute_instance.instance: Still creating... [20s elapsed]
+google_compute_instance.instance: Creation complete after 27s [id=projects/gce-nvidia-old-3rrv/zones/us-east1-c/instances/nvidia-l4-vm]
+
 Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
 
 Outputs:
@@ -259,11 +269,12 @@ enabled_services = tolist([
   "serviceusage.googleapis.com",
 ])
 instance_machine_type = "g2-standard-4"
-instance_nat_ip = "34.138.110.121"
+instance_nat_ip = "35.237.74.29"
 instance_network = "default"
-instance_self_link = "https://www.googleapis.com/compute/v1/projects/gce-nvidia-old-8eby/zones/us-east1-c/instances/nvidia-l4-vm"
+instance_self_link = "https://www.googleapis.com/compute/v1/projects/gce-nvidia-old-3rrv/zones/us-east1-c/instances/nvidia-l4-vm"
 instance_zone = "us-east1-c"
-project_id = "gce-nvidia-old-8eby"
-project_number = "689724408163"
-services_ready_dependency = "2026-01-22T19:39:51Z"
+project_id = "gce-nvidia-old-3rrv"
+project_number = "157844762887"
+services_ready_dependency = "2026-01-27T15:36:38Z"
+
 ```
