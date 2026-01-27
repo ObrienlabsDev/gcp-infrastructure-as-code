@@ -1,4 +1,5 @@
 nvidia-smi
+# This script is located at 
 # before starting the server
 # for evantual multiple L4's
 export OLLAMA_SCHED_SPREAD=1

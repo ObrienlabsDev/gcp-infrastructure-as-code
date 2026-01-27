@@ -174,6 +174,29 @@ prompt eval rate:     711.06 tokens/s
 eval count:           50 token(s)
 eval duration:        850.042902ms
 eval rate:            58.82 tokens/s
+
+in separate ssh session - validate the GPU under load
+michael@nvidia-l4-vm:~$ nvidia-smi
+Tue Jan 27 15:06:01 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 570.172.08             Driver Version: 570.172.08     CUDA Version: 12.8     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA L4                      On  |   00000000:00:03.0 Off |                    0 |
+| N/A   51C    P0             71W /   72W |   12748MiB /  23034MiB |     89%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|    0   N/A  N/A            2346      C   /usr/local/bin/ollama                 12740MiB |
++-----------------------------------------------------------------------------------------+
 ```
 ## Terraform destroy
 
