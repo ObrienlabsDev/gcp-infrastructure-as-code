@@ -1,3 +1,5 @@
+ #!/bin/bash
+ # this script is embedded in vm.tf already - here for reference
 nvidia-smi
 # This script is located at 
 # before starting the server

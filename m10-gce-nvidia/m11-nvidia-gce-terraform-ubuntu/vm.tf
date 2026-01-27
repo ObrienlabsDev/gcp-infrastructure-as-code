@@ -42,6 +42,22 @@ resource "google_compute_instance" "instance" {
 
   metadata = local.metadata
 
+  # will force VM recreate
+  metadata_startup_script = <<-EOT
+    #!/bin/bash
+    nvidia-smi
+    export OLLAMA_SCHED_SPREAD=1
+    export ROCR_VISIBLE_DEVICES=0,1
+    export CUDA_VISIBLE_DEVICES=0,1
+    # install and start the server
+    curl -fsSL https://ollama.com/install.sh | sh
+    # watch for huggingface model squatting
+    # L4 currently is running 24G vram for Ada - up from 16G for Ampere
+    #ollama run gpt-oss:20b --verbose
+  EOT
+
+
+
   network_interface {
     subnetwork = google_compute_subnetwork.main.id
 
