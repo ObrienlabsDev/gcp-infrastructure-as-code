@@ -45,7 +45,10 @@ resource "google_compute_instance" "instance" {
   # will force VM recreate
   metadata_startup_script = <<-EOT
     #!/bin/bash
+    cat << `EOL` > /ollama.sh
+    #!/bin/bash
     nvidia-smi
+    # rerun the following exports before running ollama serve - if the install fails
     export OLLAMA_SCHED_SPREAD=1
     export ROCR_VISIBLE_DEVICES=0,1
     export CUDA_VISIBLE_DEVICES=0,1
@@ -53,7 +56,11 @@ resource "google_compute_instance" "instance" {
     curl -fsSL https://ollama.com/install.sh | sh
     # watch for huggingface model squatting
     # L4 currently is running 24G vram for Ada - up from 16G for Ampere
+    # terminal 2
+    #ollama serve
+    # terminal 3
     #ollama run gpt-oss:20b --verbose
+    EOL
   EOT
 
 
