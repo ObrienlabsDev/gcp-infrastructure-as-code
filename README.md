@@ -1,5 +1,6 @@
 # gcp-infrastructure-as-code
-private version https://github.com/ObrienlabsDev/gcp-infrastructure-as-code-private
+- private version https://github.com/ObrienlabsDev/gcp-infrastructure-as-code-private
+- review private L300 2023 anthos GKE cluster migration - https://github.com/cloud-quickstart/private
 
 # Installation
 ## gcloud CLI
