@@ -8,6 +8,9 @@ show_in_hub: false
 see https://docs.cloud.google.com/firewall/docs
 terraform https://registry.terraform.io/modules/PaloAltoNetworks/swfw-modules/google/latest/examples/cloud_ngfw
 
+add
+https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/network_security_tls_inspection_policy
+
 # Reference architecture with Terraform : GCP Cloud Next-Generation Firewall
 
 Palo Alto Network provides a fully managed cloud-based Next-Generation Firewall in GCP , called the "Cloud NGFW". This example demonstrates the deployment of the Cloud NGFW in a GCP environment.
