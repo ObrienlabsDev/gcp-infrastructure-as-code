@@ -10,6 +10,7 @@ terraform https://registry.terraform.io/modules/PaloAltoNetworks/swfw-modules/go
 
 add
 https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/network_security_tls_inspection_policy
+https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/network_security_gateway_security_policy_rule
 
 # Reference architecture with Terraform : GCP Cloud Next-Generation Firewall
 
