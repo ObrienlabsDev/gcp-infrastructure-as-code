@@ -12,6 +12,8 @@ https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/n
 
 ```
 gcloud config set project ngfw-archeytpe-old
+gcloud config set compute/zone northamerica-northeast1-a                                                  
+gcloud config set compute/region northamerica-northeast1
 gcloud services enable compute.googleapis.com
 gcloud services enable networksecurity.googleapis.com
 gcloud services enable iam.googleapis.com
@@ -33,3 +35,5 @@ terraform init
 terraform apply -var-file=example.tfvars
 terraform apply -var-file=example.tfvars
 ```
+
+# Testing
