@@ -2,6 +2,7 @@
 20260514
 see https://docs.cloud.google.com/firewall/docs
 terraform https://registry.terraform.io/modules/PaloAltoNetworks/swfw-modules/google/latest/examples/cloud_ngfw
+https://docs.paloaltonetworks.com/ngfw/networking/bgp
 
 add
 https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/network_security_tls_inspection_policy
