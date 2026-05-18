@@ -23,7 +23,13 @@ gcloud services enable cloudresourcemanager.googleapis.com
 # Deployment
 
 Change the GCS bucket in backend.tf
+Check availability of the vm type
+run
+gcloud compute machine-types list --filter="zone=northamerica-northeast1-a"
+
+Duration will be 27 min
 ```
 terraform init
-
+terraform apply -var-file=example.tfvars
+terraform apply -var-file=example.tfvars
 ```

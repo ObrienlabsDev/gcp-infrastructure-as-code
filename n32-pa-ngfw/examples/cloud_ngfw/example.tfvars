@@ -57,9 +57,11 @@ cloud_nats = {
   }
 }
 
+# check
+# gcloud compute machine-types list --filter="zone=northamerica-northeast1-a"
 linux_vms = {
   client-vm = {
-    linux_machine_type = "n2-micro" #"f1-micro"
+    linux_machine_type = "e2-standard-2" #"f1-micro"
     zone               = "northamerica-northeast1-a"
     linux_disk_size    = "50" # Modify this value as per deployment requirements
     vpc_network_key    = "fw-hosts-vpc"
@@ -76,7 +78,7 @@ linux_vms = {
     SCRIPT
   },
   web-server-vm = {
-    linux_machine_type  = "n2-micro" #"f1-micro"
+    linux_machine_type  = "e2-standard-2" #"f1-micro"
     zone                = "northamerica-northeast1-a"
     linux_disk_size     = "50" # Modify this value as per deployment requirements
     vpc_network_key     = "fw-hosts-vpc"
