@@ -14,6 +14,7 @@ gcloud config set project ngfw-archeytpe-old
 gcloud services enable compute.googleapis.com
 gcloud services enable networksecurity.googleapis.com
 gcloud services enable iam.googleapis.com
+gcloud services enable cloudresourcemanager.googleapis.com
 
 ```
 ## Project
