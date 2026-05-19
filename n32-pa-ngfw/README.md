@@ -11,13 +11,15 @@ https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/n
 # Bootstrap
 
 ```
-gcloud config set project ngfw-archeytpe-old
-gcloud config set compute/zone northamerica-northeast1-a                                                  
-gcloud config set compute/region northamerica-northeast1
+gcloud config set project ngfw-archeytpe-old                                                 
+
 gcloud services enable compute.googleapis.com
 gcloud services enable networksecurity.googleapis.com
 gcloud services enable iam.googleapis.com
 gcloud services enable cloudresourcemanager.googleapis.com
+
+gcloud config set compute/zone northamerica-northeast1-a 
+gcloud config set compute/region northamerica-northeast1
 
 ```
 ## Project
@@ -32,7 +34,7 @@ gcloud compute machine-types list --filter="zone=northamerica-northeast1-a"
 Duration will be 27 min
 ```
 terraform init
-terraform apply -var-file=example.tfvars
+terraform plan -var-file=example.tfvars
 terraform apply -var-file=example.tfvars
 ```
 
